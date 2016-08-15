@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-eslint": "^6.1.2",
     "eslint": "^3.3.0",
     "eslint-config-standard": "^5.3.5",
     "eslint-plugin-promise": "^2.0.1",
@@ -26,7 +27,9 @@
   "dependencies": {
     "babel-preset-node5": "^11.1.0",
     "babel-register": "^6.11.6",
+    "crypto": "0.0.3",
     "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
     "mongoose": "^4.5.8"
   }
 }
