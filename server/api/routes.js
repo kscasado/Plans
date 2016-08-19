@@ -5,5 +5,5 @@ var User = mongoose.model('User')
 
 module.exports = function(app){
   var auth = jwt({secret: 'SECRET' , userProperty: 'payload'})
-  
+  app.get('/api/')
 }
