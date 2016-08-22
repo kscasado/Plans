@@ -6,16 +6,12 @@ import yelpController from './api/yelpService.js'
 const app = express()
 
 app.get('/api/searchYelp', function (req, res) {
-  yelpController.request_yelp({location: 'Pasadena'}, function (error, response, body){
-    // if (error) {
-    //   res.end(error)
-    // }
-    // else {
-    //   res.end(response)
-    // }
-    res.end(JSON.stringify(response))
+  yelpController.request_yelp({location: 'Pasadena'}, function (error, response, body) {
+    if (error) {
+      res.end(error)
+    }
+    res.json(response.body)
   })
-  res.end()
 })
 
 const port = 3000
