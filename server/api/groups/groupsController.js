@@ -1,5 +1,9 @@
-import Group from '../../models/groups'
-import Event from '../../models/events'
+import mongoose from 'mongoose'
+
+var Group = mongoose.model('Group')
+var Plan = mongoose.model('plan')
+
+
 const groupController = { }
 
 groupController.addGroup = function (members, name) {
@@ -7,6 +11,23 @@ groupController.addGroup = function (members, name) {
   Group.add(group)
 }
 
-groupController.addEvent = function (event, group) {
-  var eventAdd = new Event(event)
+groupController.addplan = function (plan, group) {
+  var planAdd = new Plan(plan)
+  // find group, add plan to the group
+  Group.fondOne({groupname: group}, function (err, group) {
+    if (err) {
+      console.error(err)
+    }
+    else {
+      Group.findByIdAndUpdate(group._id,
+      {$addToSet: {'plans': planAdd}},
+      {safe: true, upsert: true, new: true},
+      function (err, model) {
+        if (err) {
+          console.error(err)
+        }
+        return 200
+      })
+    }
+  })
 }
