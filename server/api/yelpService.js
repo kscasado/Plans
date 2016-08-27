@@ -21,8 +21,9 @@ yelpController.request_yelp = function (setParameters, callback) {
 
   /* We can setup default parameters here */
   var defaultParameters = {
-    location: 'San+Francisco',
-    sort: '2'
+    location: 'sf',
+    term: 'yelp',
+    limit: '1'
   }
 
   /* We set the require parameters here */
@@ -34,7 +35,6 @@ yelpController.request_yelp = function (setParameters, callback) {
     oauth_signature_method: 'HMAC-SHA1',
     oauth_version: '1.0'
   }
-  console.log(n().toString().substr(0, 10))
   /* We combine all the parameters in order of importance */
   var parameters = _.assign(defaultParameters, setParameters, requiredParameters)
 
@@ -55,6 +55,7 @@ yelpController.request_yelp = function (setParameters, callback) {
 
   /* Add the query string to the url */
   var apiURL = url + '?' + paramURL
+  
   /* Then we use request to send make the API Request */
   request(apiURL, function (error, response, body) {
     return (callback(error, response, body))

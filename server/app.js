@@ -5,6 +5,7 @@ import config from '../config/config.json'
 import yelpController from './api/yelpService.js'
 import path from 'path'
 import webpack from 'webpack'
+import bodyParser from 'body-parser'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackconfig from '../webpack.config.js'
@@ -25,13 +26,14 @@ const middleware = webpackMiddleware(compiler, {
 db.connect('mongodb://localhost/plans')
 
 const app = express()
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.get('/api/searchYelp', function (req, res) {
-  yelpController.request_yelp({location: 'Pasadena'}, function (error, response, body) {
+  yelpController.request_yelp({}, function (error, response, body) {
     if (error) {
       res.end(error)
     }
-    res.json(response.body)
+    res.json(JSON.parse(body).businesses)
   })
 })
 app.use(middleware)
