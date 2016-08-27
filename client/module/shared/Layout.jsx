@@ -4,8 +4,8 @@ class Layout extends React.Component {
   render(){
     const content = this.props.children
     return (
-      <div className='container'>
-        <h2>Layout</h2>
+      <div className='jumbotron'>
+        <h2 className='text-center'>Plans</h2>
         {content}
         </div>
     )
