@@ -2,11 +2,15 @@ import React from 'react'
 import $ from 'jquery'
 const CreatePlan = React.createClass({
   render ( ) {
+
+    const businesses = this.createList()
+    console.log(businesses)
     return (
       <div className='container-fluid'>
         <div className='row'>
 
-              <form className='form-inline text-center' onSubmit={this.searchYelp}>
+
+              <form className='form-inline text-center' onSubmit={this._searchYelp}>
                 <div className='form-group'>
                   <label htmlFor='searchTerm' className='control-label'> Enter Search Term </label>
                   <input className='form-control' placeholder='Enter Search Term' ref='searchTerm' />
@@ -15,12 +19,46 @@ const CreatePlan = React.createClass({
                   <button type="submit" className='btn btn-primary'>Search</button>
                 </div>
           </form>
-
+          {businesses}
         </div>
       </div>
     )
   },
-  searchYelp(event){
+  componentWillMount(){
+
+  },
+  componentWillUnmount(){
+
+      this.serverRequest.abort()
+  },
+  createList(){
+    const { businesses }= this.state
+    console.log(businesses)
+    if(!businesses){
+      return<br></br>
+    }
+    else{
+      let businessList = []
+
+      for(var business of businesses){
+        const businessElement = (
+          <h2>{business.name}</h2>
+        )
+        businessList.push(businessElement)
+      }
+      return businessList
+    }
+
+  },
+  getInitialState(){
+    return{
+      businesses: null,
+      error: false,
+      loading: true
+    }
+  },
+
+  _searchYelp(event){
     event.preventDefault()
     const {searchTerm,locationTerm} = this.refs
     if(!locationTerm.value){
@@ -31,7 +69,7 @@ const CreatePlan = React.createClass({
 
 
   },
-  getLocation(searchTerm){
+  _getLocation(searchTerm){
     if (navigator.geolocation) {
       var startPos;
 
@@ -55,7 +93,8 @@ const CreatePlan = React.createClass({
   data:{location: userLocation, term: SearchTerm}
 
 }).done((result) => {
-  console.log(result)
+    this.setState({businesses: result})
+    //console.log(this.state.businesses)
 }).fail((er) => {
   console.log(er)
 })
