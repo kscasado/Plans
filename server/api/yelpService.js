@@ -21,9 +21,8 @@ yelpController.request_yelp = function (setParameters, callback) {
 
   /* We can setup default parameters here */
   var defaultParameters = {
-    location: 'sf',
-    term: 'yelp',
-    limit: '1'
+    location: 'Pasadena',
+    limit: '10'
   }
 
   /* We set the require parameters here */
@@ -55,7 +54,7 @@ yelpController.request_yelp = function (setParameters, callback) {
 
   /* Add the query string to the url */
   var apiURL = url + '?' + paramURL
-  
+
   /* Then we use request to send make the API Request */
   request(apiURL, function (error, response, body) {
     return (callback(error, response, body))

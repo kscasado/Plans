@@ -25,8 +25,9 @@ const CreatePlan = React.createClass({
     const {searchTerm,locationTerm} = this.refs
     if(!locationTerm.value){
       this.getLocation(searchTerm.value)
-      console.log(location)
+
     }
+    this.getYelpResults(locationTerm.value,searchTerm.value)
 
 
   },
@@ -36,7 +37,7 @@ const CreatePlan = React.createClass({
 
       var geoSuccess = function(position) {
         startPos = position
-        $.get('/api/searchYelp/')
+
 
       }
       navigator.geolocation.getCurrentPosition(geoSuccess)
@@ -46,6 +47,18 @@ const CreatePlan = React.createClass({
       console.log('Geolocation is not supported for this Browser/OS version yet.')
 
     }
+  },
+  getYelpResults(userLocation,SearchTerm){
+    $.ajax({
+  method: 'GET',
+  url: '/api/searchYelp',
+  data:{location: userLocation, term: SearchTerm}
+
+}).done((result) => {
+  console.log(result)
+}).fail((er) => {
+  console.log(er)
+})
   }
 
 })
