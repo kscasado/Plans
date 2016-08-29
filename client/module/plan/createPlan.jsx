@@ -42,7 +42,11 @@ const CreatePlan = React.createClass({
 
       for(var business of businesses){
         const businessElement = (
-          <h2>{business.name}</h2>
+
+          <div className='yelp-plan row'>
+            <h2>{business.name}</h2>
+            <img src={business.image_url} className='img-responsive'/>
+          </div>
         )
         businessList.push(businessElement)
       }
@@ -75,6 +79,7 @@ const CreatePlan = React.createClass({
 
       var geoSuccess = function(position) {
         startPos = position
+        getYelpResults(startPos,SearchTerm,true)
 
 
       }
@@ -86,18 +91,22 @@ const CreatePlan = React.createClass({
 
     }
   },
-  getYelpResults(userLocation,SearchTerm){
-    $.ajax({
-  method: 'GET',
-  url: '/api/searchYelp',
-  data:{location: userLocation, term: SearchTerm}
+  getYelpResults(userLocation,SearchTerm,isLatLong){
 
-}).done((result) => {
-    this.setState({businesses: result})
-    //console.log(this.state.businesses)
-}).fail((er) => {
-  console.log(er)
-})
+    $.ajax({
+      method: 'GET',
+      url: '/api/searchYelp',
+      if(isLatLong){
+        data:{location: userLocation, ll: {userLocation.latitude,userLocation.longitude}}
+      else{
+        data:{location:userLocation, term:SearchTerm}
+      }
+    }).done((result) => {
+        this.setState({businesses: result})
+
+    }).fail((er) => {
+      console.log(er)
+    })
   }
 
 })
