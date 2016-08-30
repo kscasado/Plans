@@ -43,10 +43,15 @@ const CreatePlan = React.createClass({
       for(var business of businesses){
         const businessElement = (
 
-          <div className='yelp-plan row'>
-            <h2>{business.name}</h2>
-            <img src={business.image_url} className='img-responsive'/>
+          <div className='panel panel-primary'>
+            <div className='panel-heading'>{business.name}</div>
+            <div className='panel-body yelp-plan'><img src={business.image_url} className='img-responsive'/>
+            <img className='text-right' src={business.rating_img_url} className='img-responsive' />
+            <ul className='list-inline'>
+              //todo generate categories list
+          </ul>
           </div>
+      </div>
         )
         businessList.push(businessElement)
       }
@@ -96,11 +101,8 @@ const CreatePlan = React.createClass({
     $.ajax({
       method: 'GET',
       url: '/api/searchYelp',
-      if(isLatLong){
-        data:{location: userLocation, ll: {userLocation.latitude,userLocation.longitude}}
-      else{
-        data:{location:userLocation, term:SearchTerm}
-      }
+      data:{location:userLocation, term:SearchTerm,isLatLong: isLatLong}
+
     }).done((result) => {
         this.setState({businesses: result})
 

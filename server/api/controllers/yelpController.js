@@ -2,8 +2,8 @@ import yelpController from '../yelpService.js'
 const yelpHandler = { }
 
 yelpHandler.handleGet = function (req, res, next) {
-  if(!req.query.ll){
-  yelpController.request_yelp({location: req.query.location,term: req.query.term}, function (error, response, body) {
+  if(!req.query.isLatLong){
+    yelpController.request_yelp({location: req.query.location,term: req.query.term}, function (error, response, body) {
     if (error) {
 
       res.end(error)
@@ -12,7 +12,8 @@ yelpHandler.handleGet = function (req, res, next) {
   })
 }
 else{
-  yelpController.request_yelp({location: req.query.location,ll: req.query.ll}, function (error, response, body) {
+  yelpController.request_yelp({location: req.query.location,
+      ll:(req.query.location.latitude, req.query.location.longitude)}, function (error, response, body) {
     if (error) {
 
       res.end(error)
