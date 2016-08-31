@@ -7,6 +7,8 @@ import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackconfig from '../webpack.config.js'
 import yelpHandler from './api/controllers/yelpController.js'
+import passport from 'passport'
+import passportFacebook from 'passport-facebook'
 const compiler = webpack(webpackconfig)
 const middleware = webpackMiddleware(compiler, {
   publicPath: webpackconfig.output.publicPath,
@@ -25,7 +27,12 @@ db.connect('mongodb://localhost/plans')
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.get('/api/searchYelp', yelpHandler.handleGet)
-
+app.get('/auth/facebook', passport.authenticate('facebook'))
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/' }),
+  function (req, res) {
+    res.redirect('/')
+  })
 app.use(middleware)
 app.use(webpackHotMiddleware(compiler))
 app.get('*', function response (req, res) {
