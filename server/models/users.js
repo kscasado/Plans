@@ -2,10 +2,17 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 var UserSchema = new mongoose.Schema({
-  username: {type: String, lowercase: true, unique: true},
-  hash: String,
-  salt: String,
-  shows: [Number]
+  local: {
+    username: {type: String, lowercase: true, unique: true},
+    hash: String,
+    salt: String
+  },
+  facebook: {
+    id: String,
+    token: String,
+    email: String,
+    name: String
+  }
 })
 
 UserSchema.methods.setPassword = function (password) {
