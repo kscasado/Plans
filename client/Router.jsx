@@ -7,7 +7,6 @@ import CreatePlan from './module/plan/createPlan.jsx'
 const rootRoute = (
   <Router history={browserHistory}>
     <Route path='/' component={Layout}>
-      // <IndexRoute component={Nav} />
       <IndexRoute component={CreatePlan} />
     </Route>
   </Router>

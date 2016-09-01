@@ -23,7 +23,7 @@ const middleware = webpackMiddleware(compiler, {
   }
 })
 db.connect('mongodb://localhost/plans')
-
+require('../config/passport.js')(passport)
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(passport.initialize())
