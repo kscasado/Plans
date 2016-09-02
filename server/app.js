@@ -29,10 +29,11 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(passport.initialize())
 app.use(passport.session())
 app.get('/api/searchYelp', yelpHandler.handleGet)
-app.get('/auth/facebook', passport.authenticate('facebook'))
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email']}))
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function (req, res) {
+    console.log('passed authenticate')
     res.redirect('/')
   })
 app.use(middleware)

@@ -1,18 +1,31 @@
 import mongoose from 'mongoose'
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
-var UserSchema = new mongoose.Schema({
-  local: {
-    username: {type: String, lowercase: true, unique: true},
-    hash: String,
-    salt: String
-  },
-  facebook: {
-    id: String,
-    token: String,
-    email: String,
-    name: String
-  }
+var UserSchema = mongoose.Schema({
+
+    local            : {
+        email        : String,
+        password     : String,
+    },
+    facebook         : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    },
+    twitter          : {
+        id           : String,
+        token        : String,
+        displayName  : String,
+        username     : String
+    },
+    google           : {
+        id           : String,
+        token        : String,
+        email        : String,
+        name         : String
+    }
+
 })
 
 UserSchema.methods.setPassword = function (password) {
@@ -35,4 +48,4 @@ UserSchema.methods.generateJWT = function () {
   // TODO: create hash for signing
 }
 
-mongoose.model('User', UserSchema)
+module.exports = mongoose.model('User', UserSchema)
