@@ -1,9 +1,14 @@
 import React from 'react'
+import cookie from 'react-cookie'
+import jwtDecode from 'jwt-decode'
 
 class Nav extends React.Component {
-  render(){
+  render () {
     const content = this.props.children
-    console.log('in nav')
+    // var token = JSON.parse(cookie.load(token))
+    if(cookie.load('token')){
+      console.log(jwtDecode(cookie.load('token')))
+    }
     return (
 
       <div className='nav navbar-default'>
