@@ -9,11 +9,13 @@ class Nav extends React.Component {
       <div className='nav navbar-default'>
         <div className='text-right'>
           <a href='/auth/facebook'>Facebook Login</a>
+
         </div>
 
       </div>
     )
   }
 }
+<a href='/auth/facebook'>Facebook Login</a>
 
 module.exports = Nav

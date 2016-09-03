@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
 import config from '../../config/config.json'
-import { User } from '../models'
+import User from '../models/Users.js'
 import compose from 'composable-middleware'
 const EXPIRE = 60 * 60 * 5 // 5 HOURS
 const SECRET = config.secret
@@ -38,7 +38,7 @@ export const isAuthenticated = () => compose()
   .use(populateReqUser)
 // Sign Token
 export const signToken = id => jwt.sign({_id: id}, SECRET, {expiresIn: EXPIRE})
-//Sets toekn to the res.cookie
+// Sets toekn to the res.cookie
 export const setTokenCookie = (req, res) => {
   if (!req.user) {
     return res.status(404).send('It looks like you aren\'t logged in, please try again.')

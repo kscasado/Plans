@@ -1,4 +1,4 @@
-import yelpController from '../yelpService.js'
+import yelpController from './yelpService.js'
 const yelpHandler = { }
 
 yelpHandler.handleGet = function (req, res, next) {

@@ -1,4 +1,4 @@
-import config from '../../config/config.json'
+import config from '../../../config/config.json'
 import oauthSignature from 'oauth-signature'
 var n = require('nonce')()
 

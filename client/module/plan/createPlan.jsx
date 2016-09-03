@@ -103,7 +103,7 @@ const CreatePlan = React.createClass({
 
     $.ajax({
       method: 'GET',
-      url: '/api/searchYelp',
+      url: '/api/yelp/search',
       data:{location:userLocation, term:SearchTerm,isLatLong: isLatLong}
 
     }).done((result) => {

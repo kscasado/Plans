@@ -6,9 +6,9 @@ import bodyParser from 'body-parser'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackconfig from '../webpack.config.js'
-import yelpHandler from './api/controllers/yelpController.js'
-import passport from 'passport'
 
+import authRouter from './auth'
+import apiRouter from './api'
 const compiler = webpack(webpackconfig)
 const middleware = webpackMiddleware(compiler, {
   publicPath: webpackconfig.output.publicPath,
@@ -23,19 +23,10 @@ const middleware = webpackMiddleware(compiler, {
   }
 })
 db.connect('mongodb://localhost/plans')
-require('../config/passport.js')(passport)
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}))
-app.use(passport.initialize())
-app.use(passport.session())
-app.get('/api/searchYelp', yelpHandler.handleGet)
-app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email']}))
-app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/' }),
-  function (req, res) {
-    console.log('passed authenticate')
-    res.redirect('/')
-  })
+app.use('/api', apiRouter)
+app.use('/auth', authRouter)
 app.use(middleware)
 app.use(webpackHotMiddleware(compiler))
 app.get('*', function response (req, res) {
