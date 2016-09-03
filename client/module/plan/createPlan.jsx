@@ -4,7 +4,6 @@ const CreatePlan = React.createClass({
   render ( ) {
 
     const businesses = this.createList()
-    console.log(businesses)
     return (
       <div className='container-fluid'>
         <div className='row'>
@@ -24,14 +23,14 @@ const CreatePlan = React.createClass({
       </div>
     )
   },
-  componentWillMount(){
+  componentWillMount () {
 
   },
-  componentWillUnmount(){
+  componentWillUnmount () {
 
       this.serverRequest.abort()
   },
-  createList(){
+  createList () {
     const { businesses }= this.state
     console.log(businesses)
     if(!businesses){
@@ -40,7 +39,7 @@ const CreatePlan = React.createClass({
     else{
       let businessList = []
 
-      for(var business of businesses){
+      for(var business of businesses) {
         const businessElement = (
 
           <div className='panel panel-primary'>
@@ -81,11 +80,11 @@ const CreatePlan = React.createClass({
 
 
   },
-  _getLocation(searchTerm){
+  _getLocation (searchTerm) {
     if (navigator.geolocation) {
       var startPos;
 
-      var geoSuccess = function(position) {
+      var geoSuccess = function (position) {
         startPos = position
         getYelpResults(startPos,SearchTerm,true)
 

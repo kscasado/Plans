@@ -10,6 +10,10 @@ const Nav = React.createClass({
     if (user) {
       userComponent= <div>
         <img src={user.facebook.imageUrl}></img>
+        <br></br>
+        <a href='/user/{user._id}'><strong>{user.facebook.name}</strong></a>
+        <br></br>
+      <a href='/auth/logout'><strong>LogOut</strong></a>
       </div>// insert html here
     } else {
       userComponent = <a href='/auth/facebook'>Facebook Login</a>
