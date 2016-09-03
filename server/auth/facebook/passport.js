@@ -1,50 +1,40 @@
-import passport from 'passport'
-var FacebookStrategy = require('passport-facebook').Strategy
-import auth from '../../config/config.json'
-import User from '../server/models/users.js'
-import mongoose from 'mongoose'
-module.exports = function(passport){
-  passport.serializeUser(function(user, done) {
-        done(null, user.id);
-    })
+/*
+  ** handler for passport-facebook
+  ** meant to be used with mongoose
 
-    // used to deserialize the user
-    passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
-        })
-    })
-  passport.use(new FacebookStrategy({
-    clientID: auth.facebookAuth.clientID,
-    clientSecret: auth.facebookAuth.clientSecret,
-    callbackURL: auth.facebookAuth.callbackURL,
-    profileFields: ['id', 'name', 'displayName', 'picture.type(large)', 'hometown', 'profileUrl', 'email']
-  },
-  function(accessToken, refreshToken, profile, done) {
-      process.nextTick(function(){
-        User.findOne({'facebook.id': profile.id}, function(err,user){
-          if(err){
-            return done(err)
-          }
-          else if(user){
-            return done(null, user)
-          }
-          else{
-            console.log(JSON.stringify(profile))
-            var newUser = new User()
-            newUser.facebook.id=profile.id
-            newUser.facebook.token=accessToken
-            newUser.facebook.name=profile.name.given + ' ' + profile.name.familyName
-            newUser.facebook.email = profile.emails[0].value
-            newUser.save(function(err){
-              if(err)
-                throw err
-              return done(null, newUser)
-            })
-          }
-        })
+*/
+import passport from 'passport'
+import { Strategy as FacebookStrategy} from 'passport-facebook'
+
+
+export default (User,config) {
+  const settings = {
+    clientID: config.facebook.clientID,
+    clientSecret: config.facebook.clientSecret,
+    callbackURL: config.facebook.callbackURL,
+    profileFields: ['id', 'displayName', 'link', 'photos', 'email']
+  }
+  cons handler = (accessToken, refreshToken, profile, done) => {
+    User.findOne('facebookID': profile.id), (err, user) => {
+      if(user) {
+        return done(null, user)
+      }
+      if(err) {
+        return err
+      }
+      var newUser = new User()
+      newUser.facebook.id=profile.id
+      newUser.facebook.token=accessToken
+      newUser.imageUrl = profile.photos[0].value
+      newUser.facebook.name=profile.name.given + ' ' + profile.name.familyName
+      newUser.facebook.email = profile.emails[0].value
+      newUser.save( (err) => {
+        if(err){
+          throw err
+        }
+        return done(null,user)
       })
     }
-
-  ))
+  }
+  passport.use(new FacebookStrategy(settings, handler))
 }
