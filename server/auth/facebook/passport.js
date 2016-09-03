@@ -1,6 +1,6 @@
 import passport from 'passport'
 var FacebookStrategy = require('passport-facebook').Strategy
-import auth from './auth.js'
+import auth from '../../config/config.json'
 import User from '../server/models/users.js'
 import mongoose from 'mongoose'
 module.exports = function(passport){
