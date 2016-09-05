@@ -7,11 +7,16 @@ const Nav = React.createClass({
   render () {
     var userComponent
     const {user} = this.state
+
     if (user) {
+      var planLink = '/user/'+user._id+'/plans'
+      var groupLink='/user/'+user._id+'/groups'
       userComponent= <div>
         <img src={user.facebook.imageUrl}></img>
-        <br></br>
-        <a href='/user/{user._id}'><strong>{user.facebook.name}</strong></a>
+
+        <a href={planLink} className="mdl-badge" data-badge="0"><strong>Plans</strong></a>
+        <strong> | </strong>
+        <a href={groupLink} className="mdl-badge" data-badge="0"><strong>Groups</strong></a>
         <br></br>
       <a href='/auth/logout'><strong>LogOut</strong></a>
       </div>// insert html here
@@ -48,8 +53,6 @@ const Nav = React.createClass({
       this.getUserData(jwtDecode(cookie.load('token'))._id)
     }
   }
-
-
 })
 
 module.exports = Nav
