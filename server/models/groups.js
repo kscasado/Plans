@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
-import Plan from 'plans.js'
+
 var GroupSchema = new mongoose.Schema({
   groupname: { type: String, unique: true },
-  members: [String],
-  plans: [Plan]
+  members: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+  plans: [{type: mongoose.Schema.Types.ObjectId, ref: 'Plan'}]
 })
+
+module.exports = mongoose.model('Group', GroupSchema)

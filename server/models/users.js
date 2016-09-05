@@ -12,7 +12,8 @@ var UserSchema = mongoose.Schema({
     token: String,
     email: String,
     name: String
-  }
+  },
+  groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Group'}]
 })
 
 UserSchema.methods.setPassword = function (password) {

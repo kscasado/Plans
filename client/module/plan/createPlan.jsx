@@ -5,7 +5,7 @@ const CreatePlan = React.createClass({
 
     const businesses = this.createList()
     return (
-      <div className='container-fluid'>
+      <div className='mdl-grid'>
         <div className='row'>
 
 
