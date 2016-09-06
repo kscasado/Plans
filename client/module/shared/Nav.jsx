@@ -9,8 +9,8 @@ const Nav = React.createClass({
     const {user} = this.state
 
     if (user) {
-      var planLink = '/user/'+user._id+'/plans'
-      var groupLink='/user/'+user._id+'/groups'
+      var planLink = 'api/users/'+user._id+'/plans'
+      var groupLink='api/users/'+user._id+'/groups'
       userComponent= <div>
         <img src={user.facebook.imageUrl}></img>
 

@@ -11,6 +11,6 @@ const router = express.Router()
 
 router.get('/:id', controller.getUser)
 router.get('/me', controller.me)
-route.get('/:id/groups', controller.getGroups)
-route.get('/:id/plans', controller.getPlans)
+router.get('/:id/groups', controller.getGroups)
+router.get('/:id/plans', controller.getPlans)
 export default router

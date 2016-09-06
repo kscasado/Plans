@@ -8,7 +8,9 @@ const rootRoute = (
   <Router history={browserHistory}>
     <Route path='/' component={Layout}>
       <IndexRoute component={CreatePlan} />
+      <Route path='users/:id/groups' component={Groups} />
     </Route>
+
   </Router>
 )
 
