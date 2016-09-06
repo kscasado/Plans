@@ -82,6 +82,7 @@ const CreatePlan = React.createClass({
           </div>
           <br></br>
           <br></br>
+          {this.props.children}
         </div>
         )
         businessList.push(businessElement)

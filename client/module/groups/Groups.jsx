@@ -1,21 +1,21 @@
 import React from 'react'
 import $ from 'jquery'
 import { browserHistory } from 'react-router'
-class Groups extends React.Component {
+const Groups = React.createClass ({
   getInitialState () {
     return {
       user: null,
       groups: null,
       hasGroups: false
     }
-  }
+  },
   componentWillMount () {
     console.log('Groups ComponentWillMount')
     this.serverRequest = this._getGroups()
-  }
+  },
   componentWillUnmount () {
-    this.serverRequest.abort()
-  }
+
+  },
   _getGroups () {
     const { userID } = this.props.params
     return $.get('/api/users/${userID}/groups', result => {
@@ -31,7 +31,7 @@ class Groups extends React.Component {
         })
       }
     })
-  }
+  },
   render () {
     return (
       <div>
@@ -40,6 +40,6 @@ class Groups extends React.Component {
       </div>
     )
   }
-}
+})
 
 module.exports = Groups
