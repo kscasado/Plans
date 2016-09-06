@@ -38,7 +38,7 @@ const CreatePlan = React.createClass({
   },
   componentWillUnmount () {
 
-      this.serverRequest.abort()
+
   },
   createList () {
     const { businesses }= this.state

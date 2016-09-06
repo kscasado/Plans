@@ -1,22 +1,25 @@
 import React from 'react'
 import cookie from 'react-cookie'
 import jwtDecode from 'jwt-decode'
+import { Link } from 'react-router'
 import $ from 'jquery'
 
 const Nav = React.createClass({
   render () {
+    const content =this.props.children
     var userComponent
     const {user} = this.state
 
     if (user) {
-      var planLink = 'api/users/'+user._id+'/plans'
-      var groupLink='api/users/'+user._id+'/groups'
+
+      var planLink = 'users/'+user._id+'/plans'
+      var groupLink='users/'+user._id+'/groups'
       userComponent= <div>
         <img src={user.facebook.imageUrl}></img>
 
-        <a href={planLink} className="mdl-badge" data-badge="0"><strong>Plans</strong></a>
+        <Link to={`users/${user._id}/plans`} className="mdl-badge" data-badge="0"><strong>Plans</strong></Link>
         <strong> | </strong>
-        <a href={groupLink} className="mdl-badge" data-badge="0"><strong>Groups</strong></a>
+        <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
         <br></br>
       <a href='/auth/logout'><strong>LogOut</strong></a>
       </div>// insert html here
@@ -24,7 +27,7 @@ const Nav = React.createClass({
       userComponent = <a href='/auth/facebook'>Facebook Login</a>
     }
     return (
-
+      <div>
       <div className='nav navbar-default'>
         <div className='text-right'>
           {userComponent}
@@ -32,6 +35,8 @@ const Nav = React.createClass({
         </div>
 
       </div>
+      {content}
+    </div>
     )
   },
   getUserData (_id) {

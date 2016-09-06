@@ -1,5 +1,6 @@
 import React from 'react'
 import $ from 'jquery'
+import { browserHistory } from 'react-router'
 class Groups extends React.Component {
   getInitialState () {
     return {
@@ -9,6 +10,7 @@ class Groups extends React.Component {
     }
   }
   componentWillMount () {
+    console.log('Groups ComponentWillMount')
     this.serverRequest = this._getGroups()
   }
   componentWillUnmount () {
@@ -18,6 +20,7 @@ class Groups extends React.Component {
     const { userID } = this.props.params
     return $.get('/api/users/${userID}/groups', result => {
       const { groupsResult } = result
+      console.log(groupsResult)
       if (groupsResult === 'nogroups') {
         this.setState({
           groups: 'none'
@@ -31,8 +34,8 @@ class Groups extends React.Component {
   }
   render () {
     return (
-      <div className=''>
-        <h2 className='text-center'>Plans</h2>
+      <div>
+        <h2 className='text-center'>Groups</h2>
         <strong>{this.state.groups}</strong>
       </div>
     )
