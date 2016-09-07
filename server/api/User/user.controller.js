@@ -14,12 +14,14 @@ controller.me = (req, res) => {
   res.json(req.user)
 }
 controller.getGroups = (req, res) => {
+  console.log('before the error')
   User.findOne({'_id': req.params.id}, 'groups', (err, user) => {
     if (err) {
+      console.log(err)
       res.send(err)
     } else {
       console.log(user)
-      console.log(user.groups)
+      console.log(user.groups.length)
       res.json(user.groups)
     }
   })

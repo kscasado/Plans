@@ -6,7 +6,7 @@ class Layout extends React.Component {
 
     return (
       <div className = 'well'>
-        <h2 className='text-center'>Plans</h2>
+        <h2 className='text-center'>Lets Make Plans</h2>
         <Nav />
       {content}
       </div>

@@ -10,7 +10,7 @@ const Groups = React.createClass ({
     }
   },
   componentWillMount () {
-    console.log('Groups ComponentWillMount')
+
     this.serverRequest = this._getGroups()
   },
   componentWillUnmount () {
@@ -18,9 +18,10 @@ const Groups = React.createClass ({
   },
   _getGroups () {
     const { userID } = this.props.params
-    return $.get('/api/users/${userID}/groups', result => {
-      const { groupsResult } = result
-      console.log(groupsResult)
+    console.log(userID)
+    return $.get('/api/users/${this.props.params.user._id}/groups', result => {
+
+      console.log(result)
       if (groupsResult === 'nogroups') {
         this.setState({
           groups: 'none'
