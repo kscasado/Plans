@@ -36,6 +36,7 @@
     "cookie-session": "^1.2.0",
     "cookies": "^0.6.1",
     "crypto": "0.0.3",
+    "debug": "^2.2.0",
     "express": "^4.14.0",
     "express-jwt": "^3.4.0",
     "express-logger": "0.0.3",
@@ -54,7 +55,9 @@
     "react-dom": "^15.3.1",
     "react-router": "^2.7.0",
     "redux": "^3.5.2",
+    "redux-logger": "^2.6.1",
     "request": "^2.74.0",
+    "thunk": "0.0.1",
     "yelp": "^1.0.1",
     "yelpv3": "^1.0.1"
   }

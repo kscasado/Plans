@@ -18,22 +18,26 @@ const Groups = React.createClass ({
   },
   _getGroups () {
     const { userID } = this.props.params
+    this.props.params.hasGroups=false;
     console.log(userID)
     return $.get('/api/users/${this.props.params.user._id}/groups', result => {
 
-      console.log(result)
-      if (groupsResult === 'nogroups') {
+
+      if(!result.length==0){
+        this.props.params.hasGroups=true;
         this.setState({
-          groups: 'none'
-        })
-      } else {
-        this.setState({
-          groups: groupsResult
+          groups: result
         })
       }
     })
   },
   render () {
+    var NoGroupElement;
+    if(!this.props.params.hasGroups){
+      NoGroupElement = <div>
+        <h2>You have no groups, would you like to create one?</h2>
+      </div>
+    }
     return (
       <div>
         <h2 className='text-center'>Groups</h2>
