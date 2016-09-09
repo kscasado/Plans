@@ -5,7 +5,7 @@ class Layout extends React.Component {
     const content = this.props.children
 
     return (
-      <div className = 'well'>
+      <div className = 'container'>
         <h2 className='text-center'>Lets Make Plans</h2>
         <Nav />
       {content}

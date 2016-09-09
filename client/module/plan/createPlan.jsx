@@ -6,10 +6,10 @@ const CreatePlan = React.createClass({
     const businesses = this.createList()
     return (
       <div className='mdl-grid'>
-        <div className='row'>
+        <div className='mdl-cell'>
 
 
-              <form className='form-inline text-center' onSubmit={this._searchYelp}>
+              <form className='form-inline' onSubmit={this._searchYelp}>
                 <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
                   <label htmlFor='searchTerm' className='mdl-textfield__label'> Enter Search Term </label>
                   <input className='mdl-textfield__input' placeholder='Enter Search Term' ref='searchTerm' />

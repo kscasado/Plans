@@ -28,12 +28,8 @@ const Nav = React.createClass({
     }
     return (
       <div>
-      <div className='nav navbar-default'>
-        <div className='text-right'>
-          {userComponent}
-
-        </div>
-
+      <div className='mdl-navigation__left-section'>
+        {userComponent}
       </div>
       {content}
     </div>

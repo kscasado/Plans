@@ -34,13 +34,18 @@ const Groups = React.createClass ({
   render () {
     var NoGroupElement;
     if(!this.props.params.hasGroups){
-      NoGroupElement = <div>
+      NoGroupElement =
+      <div className="container text-center">
         <h2>You have no groups, would you like to create one?</h2>
-      </div>
+          <button className=" text-center mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i className="material-icons">add</i>
+          </button>
+    </div>
     }
     return (
       <div>
         <h2 className='text-center'>Groups</h2>
+        {NoGroupElement}
         <strong>{this.state.groups}</strong>
       </div>
     )
