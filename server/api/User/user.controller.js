@@ -48,10 +48,25 @@ controller.getPlans = (req, res) => {
   })
 }
 controller.addEvent = (req, res) => {
-  plan.findOne(({'_id':req.params.id}))
+  var newEvent = new Plan(req.body)
+  newEvent.save((err, plan) => {
+    if(err){ return next(err)}
+    req.user.events.push(plan)
+    req.user.save((err, user) =>{
+      if(err){ return next(err)}
+      res.json(plan)
+    })
+  })
 }
 controller.addGroup = (req, res) => {
-
+  var newGroup = new Group(req.body.group)
+  newGroup.save((err, group) => {
+    req.user.groups.push(group)
+    req.user.save((err, user) =>{
+      if(err){ return next(err)}
+      res.json(group)
+    })
+  })
 }
 
 export default controller

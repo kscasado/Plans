@@ -4,7 +4,8 @@ var PlanSchema = new mongoose.Schema({
   date: Date,
   group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
   options: [String],
-  votes: [Number]
+  votes: [Number],
+  winner:String
 })
 
 mongoose.model('Plan', PlanSchema)
