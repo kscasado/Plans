@@ -5,13 +5,13 @@
   *GET /api/users/:id/events -> return the list of events the user has
   *POST /api/users/:id/addEvent -> add the event to the users list
   *POST /api/users/:id/addGroup -> add a group to the users list
-
+  *
 */
 
 import express from 'express'
 import controller from './user.controller'
 const router = express.Router()
-
+router.param('id',contoller.userParam)
 router.get('/:id', controller.getUser)
 router.get('/me', controller.me)
 router.get('/:id/groups', controller.getGroups)

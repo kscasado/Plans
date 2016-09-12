@@ -1,6 +1,17 @@
 import User from '../../models/Users.js'
+import Groups from '../../models/Groups.js'
+import Plans from '../../models/plans.js'
 const controller = {}
 
+controller.userParam = (req,res,next,id) => {
+  var query = User.findById(id)
+  query.exec((err, user){
+    if(err){ return next(err)}
+    if(!user){return next(new Error('can\'t find user'))}
+    req.user = user
+    return next()
+  })
+}
 controller.getUser = (req, res) => {
   User.findOne({'_id': req.params.id}, (err, user) => {
     if (err) {
@@ -14,8 +25,7 @@ controller.me = (req, res) => {
   res.json(req.user)
 }
 controller.getGroups = (req, res) => {
-  console.log('before the error')
-  User.findOne({'_id': req.params.id}, 'groups', (err, user) => {
+  User.findOne({'_id': req.user._id}, 'groups', (err, user) => {
     if (err) {
       console.log(err)
       res.send(err)
@@ -36,6 +46,12 @@ controller.getPlans = (req, res) => {
       res.json(user.plans)
     }
   })
+}
+controller.addEvent = (req, res) => {
+  plan.findOne(({'_id':req.params.id}))
+}
+controller.addGroup = (req, res) => {
+
 }
 
 export default controller
