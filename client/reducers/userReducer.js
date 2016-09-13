@@ -9,18 +9,22 @@ export default function reducer(state={
   hasGroups: false
   hasEvents: false}, action) {
     switch (action.type) {
-      case '': {
+      case 'GET_USER': {
+        return {...state, user: action.payload}
+      }
+      case 'ADD_GROUP': {
+        return {...state,
+          user.groups:...state.user.events, action.payload
+        }
 
       }
-      case '': {
-
+      case 'ADD_EVENT': {
+        return {
+          ...state,
+          user.events:...state.user.events, action.payload
+        }
       }
-      case '': {
-
-      }
-      case '': {
-
-      }
+      
     }
     return state
 }
