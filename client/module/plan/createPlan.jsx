@@ -6,7 +6,7 @@ const CreatePlan = React.createClass({
     const businesses = this.createList()
     return (
       <div className='mdl-grid'>
-        <div className='mdl-cell'>
+        <div className='text-center'>
 
 
               <form className='form-inline' onSubmit={this._searchYelp}>
@@ -19,7 +19,7 @@ const CreatePlan = React.createClass({
                   <label htmlFor='locationTerm' className='mdl-textfield__label'> Enter Location </label>
                   <input className='mdl-textfield__input' placeholder='Enter Location' ref='locationTerm' />
                   </div>
-                  <div>
+                  <div className='text-center'>
                   <button type="submit" className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
                     <i className="material-icons">search</i>
 
@@ -40,6 +40,10 @@ const CreatePlan = React.createClass({
 
 
   },
+  /*
+    Create a businessList based on the state
+
+  */
   createList () {
     const { businesses }= this.state
     if(!businesses){
@@ -98,7 +102,11 @@ const CreatePlan = React.createClass({
       loading: true
     }
   },
+  /*
+    get the yelp results given the location and search term
 
+
+  */
   _searchYelp(event){
     event.preventDefault()
     const {searchTerm,locationTerm} = this.refs
@@ -110,6 +118,11 @@ const CreatePlan = React.createClass({
 
 
   },
+  /*
+    gets the location is no location is entered
+
+
+  */
   _getLocation (searchTerm) {
     if (navigator.geolocation) {
       var startPos;
@@ -128,6 +141,10 @@ const CreatePlan = React.createClass({
 
     }
   },
+  /*
+    uses yelp api to get search result and populate state with business list
+    //TODO: replace with redux
+  */
   getYelpResults(userLocation,SearchTerm,isLatLong){
 
     $.ajax({

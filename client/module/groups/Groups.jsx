@@ -19,7 +19,6 @@ const Groups = React.createClass ({
   _getGroups () {
     const { userID } = this.props.params
     this.props.params.hasGroups=false;
-    console.log(userID)
     return $.get('/api/users/${this.props.params.user._id}/groups', result => {
 
 
@@ -32,19 +31,19 @@ const Groups = React.createClass ({
     })
   },
   render () {
-    var NoGroupElement;
-    if(!this.props.params.hasGroups){
+    var NoGroupElement
+    if (!this.props.params.hasGroups) {
       NoGroupElement =
-      <div className="container text-center">
+      <div className="mdl-typography--text-center">
         <h2>You have no groups, would you like to create one?</h2>
-          <button className=" text-center mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
             <i className="material-icons">add</i>
           </button>
-    </div>
+        </div>
     }
     return (
       <div>
-        <h2 className='text-center'>Groups</h2>
+        <h2>Groups</h2>
         {NoGroupElement}
         <strong>{this.state.groups}</strong>
       </div>

@@ -5,12 +5,12 @@ const controller = {}
 
 controller.userParam = (req,res,next,id) => {
   var query = User.findById(id)
-  query.exec((err, user){
-    if(err){ return next(err)}
-    if(!user){return next(new Error('can\'t find user'))}
-    req.user = user
-    return next()
-  })
+    query.exec((err, user) => {
+      if(err){ return next(err)}
+      if(!user){return next(new Error('can\'t find user'))}
+      req.user = user
+      return next()
+    })
 }
 controller.getUser = (req, res) => {
   User.findOne({'_id': req.params.id}, (err, user) => {

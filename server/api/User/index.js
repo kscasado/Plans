@@ -11,7 +11,7 @@
 import express from 'express'
 import controller from './user.controller'
 const router = express.Router()
-router.param('id',contoller.userParam)
+router.param('id', controller.userParam)
 router.get('/:id', controller.getUser)
 router.get('/me', controller.me)
 router.get('/:id/groups', controller.getGroups)

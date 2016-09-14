@@ -22,13 +22,13 @@ const Nav = React.createClass({
         <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
         <br></br>
       <a href='/auth/logout'><strong>LogOut</strong></a>
-      </div>// insert html here
+      </div>
     } else {
       userComponent = <a href='/auth/facebook'>Facebook Login</a>
     }
     return (
       <div>
-      <div className='mdl-navigation__left-section'>
+      <div className='mdl-navigation mdl-typography--text-right'>
         {userComponent}
       </div>
       {content}
@@ -44,7 +44,7 @@ const Nav = React.createClass({
       this.setState({user: result})
     })
   },
-  getInitialState(){
+  getInitialState () {
     return{
       user: null
     }

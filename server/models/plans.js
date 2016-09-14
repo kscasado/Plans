@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import group from 'Groups'
+import group from './groups.js'
 var PlanSchema = new mongoose.Schema({
   date: Date,
   group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},

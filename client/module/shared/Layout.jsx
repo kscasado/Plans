@@ -5,9 +5,10 @@ class Layout extends React.Component {
     const content = this.props.children
 
     return (
-      <div className = 'container'>
-        <h2 className='text-center'>Lets Make Plans</h2>
+      <div className = 'mdl-layout mdl-js-layout'>
+        <h2 className='mdl-typography--text-center mdl-layout__header'>Lets Make Plans</h2>
         <Nav />
+
       {content}
       </div>
     )
