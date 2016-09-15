@@ -9,15 +9,8 @@ import { addGroup } from '../../actions/userAction'
   }
 })
 export default class Groups extends React.Component {
-  getInitialState () {
-    return {
-      user: null,
-      groups: null,
-      hasGroups: false
-    }
-  }
   componentWillMount () {
-    this.serverRequest = this._getGroups()
+
   }
   componentWillUnmount () {
 
@@ -43,8 +36,10 @@ export default class Groups extends React.Component {
     }
   }
   render () {
+    const { user } = this.props
+
     var NoGroupElement
-    if (!this.props.params.hasGroups) {
+    if (user.groups.length===0) {
       NoGroupElement =
       <div className="mdl-typography--text-center">
         <h2>You have no groups, would you like to create one?</h2>
@@ -57,7 +52,7 @@ export default class Groups extends React.Component {
       <div>
         <h2>Groups</h2>
         {NoGroupElement}
-        <strong>{this.state.groups}</strong>
+        <strong>{user.groups}</strong>
       </div>
     )
   }
