@@ -30,20 +30,22 @@ export default class Groups extends React.Component {
     })
   }
   _addGroup(){
+    console.log(this.props.user)
     if(!this.props.params.hasGroups){
-      this.props.dispatch(addGroup(this.props.params.user._id,
-                                    this.props.params.user._id, 'Default Group'))
+      this.props.dispatch(addGroup(this.props.user._id,
+                                    this.props.user._id, 'Default Group'))
     }
   }
   render () {
     const { user } = this.props
 
     var NoGroupElement
-    if (user.groups.length===0) {
+    if ( true) {
+    //if (user.groups.length===0) {
       NoGroupElement =
       <div className="mdl-typography--text-center">
         <h2>You have no groups, would you like to create one?</h2>
-          <button onClick={this._addDefaultGroup} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <button onClick={this._addGroup.bind(this)} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
             <i className="material-icons">add</i>
           </button>
         </div>

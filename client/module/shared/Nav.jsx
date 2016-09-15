@@ -6,26 +6,26 @@ import { connect } from 'react-redux'
 import { getUser } from '../../actions/userAction.js'
 import $ from 'jquery'
 @connect ((store) => {
-  return{
+  return {
     user: store.user
   }
 })
-export default class Nav extends React.Component{
+export default class Nav extends React.Component {
   render () {
-    const content =this.props.children
+    const content = this.props.children
     var userComponent
     const {user} = this.props
 
     if (user) {
 
-      var planLink = 'users/'+user.id+'/plans'
-      var groupLink='users/'+user.id+'/groups'
+      var planLink = 'users/'+user._id+'/plans'
+      var groupLink='users/'+user._id+'/groups'
       userComponent= <div>
-        <img src={user.user.imageUrl}></img>
+        <img src={user.facebook.imageUrl}></img>
 
-        <Link to={`users/${user.user.id}/plans`} className="mdl-badge" data-badge="0"><strong>Plans</strong></Link>
+        <Link to={`users/${user._id}/plans`} className="mdl-badge" data-badge="0"><strong>Plans</strong></Link>
         <strong> | </strong>
-        <Link to={`users/${user.user.id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
+        <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
         <br></br>
       <a href='/auth/logout'><strong>LogOut</strong></a>
       </div>

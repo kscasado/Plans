@@ -4,10 +4,15 @@ import Plans from '../../models/plans.js'
 const controller = {}
 
 controller.userParam = (req,res,next,id) => {
-  var query = User.findById(id)
+  console.log(id)
+
+  var query = User.findOne({'_id':id})
     query.exec((err, user) => {
       if(err){ return next(err)}
-      if(!user){return next(new Error('can\'t find user'))}
+      if(!user){
+        console.log('in userParam')
+        return next(new Error('can\'t find user'))
+      }
       req.user = user
       return next()
     })
@@ -59,11 +64,18 @@ controller.addEvent = (req, res) => {
   })
 }
 controller.addGroup = (req, res) => {
-  var newGroup = new Group(req.body.group)
+  var newGroup = new Group()
+  console.log(req.body)
+  newGroup.groupname = req.body.groupName
+  newGroup.members = req.body.memberIDs
+  console.log(newGroup.groupName)
   newGroup.save((err, group) => {
+    console.log(group)
     req.user.groups.push(group)
     req.user.save((err, user) =>{
       if(err){ return next(err)}
+      console.log('in here')
+      console.log(group)
       res.json(group)
     })
   })

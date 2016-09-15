@@ -59,9 +59,10 @@ export function addEvent (userID, Event) {
   name of the group
 */
 export function addGroup (userID, members, name) {
+  console.log('userID: '+userID+'members:'+members)
   return function(dispatch){
     axios.post('/api/users/' + userID + '/addGroup', {
-      memberNames: members,
+      memberIDs: members,
       groupName: name
     })
     .then(response => {

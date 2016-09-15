@@ -1,5 +1,6 @@
 export default function reducer(state={
-  user:{
+  _id: null,
+  facebook:{
     id: null,
     imageUrl: null,
     name: null,
@@ -12,7 +13,7 @@ export default function reducer(state={
   hasEvents: false}, action) {
     switch (action.type) {
       case 'GET_USER': {
-        return {...state, user: action.payload.facebook,
+        return {...state,_id:action.payload._id, facebook: action.payload.facebook,
                         groups: action.payload.groups, plans: action.payload.plans}
       }
       case 'ADD_GROUP': {

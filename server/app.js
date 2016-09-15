@@ -24,6 +24,7 @@ const middleware = webpackMiddleware(compiler, {
 })
 db.connect('mongodb://localhost/plans')
 const app = express()
+app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 app.use('/api', apiRouter)
 app.use('/auth', authRouter)
