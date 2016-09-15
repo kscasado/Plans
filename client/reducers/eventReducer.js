@@ -5,7 +5,7 @@ export default function reducer(state={
     options: null,
     group: null
 
-  }
+  },
   hasWinner: false}, action) {
     switch (action.type) {
       case '': {

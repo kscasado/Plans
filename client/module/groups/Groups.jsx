@@ -1,21 +1,27 @@
 import React from 'react'
 import $ from 'jquery'
+import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-const Groups = React.createClass ({
+import { addGroup } from '../../actions/userAction'
+@connect((store) => {
+  return{
+    user: store.user
+  }
+})
+export default class Groups extends React.Component {
   getInitialState () {
     return {
       user: null,
       groups: null,
       hasGroups: false
     }
-  },
+  }
   componentWillMount () {
-
     this.serverRequest = this._getGroups()
-  },
+  }
   componentWillUnmount () {
 
-  },
+  }
   _getGroups () {
     const { userID } = this.props.params
     this.props.params.hasGroups=false;
@@ -29,14 +35,20 @@ const Groups = React.createClass ({
         })
       }
     })
-  },
+  }
+  _addGroup(){
+    if(!this.props.params.hasGroups){
+      this.props.dispatch(addGroup(this.props.params.user._id,
+                                    this.props.params.user._id, 'Default Group'))
+    }
+  }
   render () {
     var NoGroupElement
     if (!this.props.params.hasGroups) {
       NoGroupElement =
       <div className="mdl-typography--text-center">
         <h2>You have no groups, would you like to create one?</h2>
-          <button className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+          <button onClick={this._addDefaultGroup} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
             <i className="material-icons">add</i>
           </button>
         </div>
@@ -49,6 +61,4 @@ const Groups = React.createClass ({
       </div>
     )
   }
-})
-
-module.exports = Groups
+}
