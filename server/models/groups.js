@@ -6,4 +6,4 @@ var GroupSchema = new mongoose.Schema({
   plans: [{type: mongoose.Schema.Types.ObjectId, ref: 'Plan'}]
 })
 
-module.exports = mongoose.model('Group', GroupSchema)
+module.exports = mongoose.model('Groups', GroupSchema)

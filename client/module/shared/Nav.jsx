@@ -2,24 +2,30 @@ import React from 'react'
 import cookie from 'react-cookie'
 import jwtDecode from 'jwt-decode'
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
+import { getUser } from '../../actions/userAction.js'
 import $ from 'jquery'
-
-const Nav = React.createClass({
+@connect ((store) => {
+  return{
+    user: store.user
+  }
+})
+export default class Nav extends React.Component{
   render () {
     const content =this.props.children
     var userComponent
-    const {user} = this.state
+    const {user} = this.props
 
     if (user) {
 
-      var planLink = 'users/'+user._id+'/plans'
-      var groupLink='users/'+user._id+'/groups'
+      var planLink = 'users/'+user.id+'/plans'
+      var groupLink='users/'+user.id+'/groups'
       userComponent= <div>
-        <img src={user.facebook.imageUrl}></img>
+        <img src={user.user.imageUrl}></img>
 
-        <Link to={`users/${user._id}/plans`} className="mdl-badge" data-badge="0"><strong>Plans</strong></Link>
+        <Link to={`users/${user.user.id}/plans`} className="mdl-badge" data-badge="0"><strong>Plans</strong></Link>
         <strong> | </strong>
-        <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
+        <Link to={`users/${user.user.id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
         <br></br>
       <a href='/auth/logout'><strong>LogOut</strong></a>
       </div>
@@ -34,26 +40,22 @@ const Nav = React.createClass({
       {content}
     </div>
     )
-  },
+  }
   getUserData (_id) {
-    $.ajax({
-      method: 'GET',
-      url: '/api/users/' + _id
+    this.props.dispatch(getUser(_id))
 
-    }).done((result) => {
-      this.setState({user: result})
-    })
-  },
-  getInitialState () {
-    return{
-      user: null
-    }
-  },
+    // $.ajax({
+    //   method: 'GET',
+    //   url: '/api/users/' + _id
+    //
+    // }).done((result) => {
+    //   this.setState({user: result})
+    // })
+  }
+
   componentWillMount () {
     if(cookie.load('token')){
       this.getUserData(jwtDecode(cookie.load('token'))._id)
     }
   }
-})
-
-module.exports = Nav
+}

@@ -1,5 +1,5 @@
 import User from '../../models/Users.js'
-import Groups from '../../models/Groups.js'
+import Group from '../../models/groups.js'
 import Plans from '../../models/plans.js'
 const controller = {}
 

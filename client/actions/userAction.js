@@ -20,7 +20,7 @@ export function getUser (userID) {
 return function (dispatch){
   axios.get('/api/users/' + userID)
     .then(response => {
-      dispatch({type: "GET_USER", payload: response})
+      dispatch({type: "GET_USER", payload: response.data})
     })
     .catch(error => {
       dispatch({type: "GET_USER_FAILED", payload: error})
