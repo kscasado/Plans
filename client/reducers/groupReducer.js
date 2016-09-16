@@ -1,23 +1,18 @@
-export default function reducer(state={
-  group:{
+export default function reducer(state = {
+  groups: [{
     id: null,
     members: [],
     events: [],
     name: null
-  }}, action) {
-    switch (action.type) {
-      case '': {
-
-      }
-      case '': {
-
-      }
-      case '': {
-
-      }
-      case '': {
-
-      }
+  }],
+  error:null}, action) {
+  switch (action.type) {
+    case 'GET_GROUPS_WITH_USER': {
+      return { ...state, groups:[...state.groups, action.payload] }
     }
-    return state
+    case 'GET_GROUPS_WITH_USER_ERROR': {
+      return {...state, error:action.payload}
+    }
+  }
+  return state
 }

@@ -30,7 +30,8 @@ controller.me = (req, res) => {
   res.json(req.user)
 }
 controller.getGroups = (req, res) => {
-  User.findOne({'_id': req.user._id}, 'groups', (err, user) => {
+
+  User.findOne({'_id': req.user._id}).populate('groups').exec((err, user) => {
     if (err) {
       console.log(err)
       res.send(err)

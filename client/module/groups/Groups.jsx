@@ -2,10 +2,12 @@ import React from 'react'
 import $ from 'jquery'
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
-import { addGroup } from '../../actions/userAction'
+import { addGroup, getGroups } from '../../actions/userAction'
+import { getGroupsfromUser } from '../../actions/groupAction'
 @connect((store) => {
   return{
-    user: store.user
+    user: store.user,
+    groups: store.groups
   }
 })
 export default class Groups extends React.Component {
@@ -16,18 +18,8 @@ export default class Groups extends React.Component {
 
   }
   _getGroups () {
-    const { userID } = this.props.params
-    this.props.params.hasGroups=false;
-    return $.get('/api/users/${this.props.params.user._id}/groups', result => {
-
-
-      if(!result.length==0){
-        this.props.params.hasGroups=true;
-        this.setState({
-          groups: result
-        })
-      }
-    })
+    const { user } = this.props
+    this.props.dispatch(getGroups(user._id))
   }
   _generateGroupElement(){
 
@@ -49,7 +41,7 @@ export default class Groups extends React.Component {
         const groupElement =
           <div className='mdl-card mdl-cell mdl-shadow--4dp'>
             <div className='mdl-card_title mdl-card--expand'>
-              group.groupName
+              {group.groupname}
             </div>
           </div>
           groupList.push(groupElement)
@@ -59,6 +51,7 @@ export default class Groups extends React.Component {
   }
   render () {
     const { user } = this.props
+    this._getGroups()
     var groupElement = this._generateGroupElement(user)
     var addGroupElement =
       <div className="mdl-typography--text-center">
