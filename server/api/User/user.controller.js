@@ -10,7 +10,6 @@ controller.userParam = (req,res,next,id) => {
     query.exec((err, user) => {
       if(err){ return next(err)}
       if(!user){
-        console.log('in userParam')
         return next(new Error('can\'t find user'))
       }
       req.user = user
@@ -31,13 +30,14 @@ controller.me = (req, res) => {
 }
 controller.getGroups = (req, res) => {
 
-  User.findOne({'_id': req.user._id}).populate('groups').exec((err, user) => {
+  User.findOne({'_id': req.user._id})
+    .populate('groups')
+    .populate('groups.members')
+    .exec((err, user) => {
     if (err) {
       console.log(err)
       res.send(err)
     } else {
-      console.log(user)
-      console.log(user.groups.length)
       res.json(user.groups)
     }
   })
