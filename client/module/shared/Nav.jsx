@@ -16,16 +16,16 @@ export default class Nav extends React.Component {
     var userComponent
     const {user} = this.props
 
-    if (user) {
+    if (user.isFetched) {
 
       var planLink = 'users/'+user._id+'/plans'
       var groupLink='users/'+user._id+'/groups'
       userComponent= <div>
         <img src={user.facebook.imageUrl}></img>
 
-        <Link to={`users/${user._id}/plans`} className="mdl-badge" data-badge="0"><strong>Plans</strong></Link>
+        <Link to={`users/${user._id}/plans`} className="mdl-badge" data-badge={`${user.plans.length}`}><strong>Plans</strong></Link>
         <strong> | </strong>
-        <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge="0"><strong>Groups</strong></Link>
+        <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge={`${user.groups.length}`}><strong>Groups</strong></Link>
         <br></br>
       <a href='/auth/logout'><strong>LogOut</strong></a>
       </div>

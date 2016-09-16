@@ -7,20 +7,33 @@ export default function reducer(state={
     token: null,
     email: null
   },
-  groups: null,
+  groups: [{
+    _id: null,
+    groupName: null,
+    members: [],
+    plans: []
+  }],
   plans: null,
+  isFetched:false,
   hasGroups: false,
   hasEvents: false}, action) {
     switch (action.type) {
       case 'GET_USER': {
+
         return {...state,_id:action.payload._id, facebook: action.payload.facebook,
-                        groups: action.payload.groups, plans: action.payload.plans}
+                        groups: action.payload.groups, plans: action.payload.plans, isFetched:true}
       }
       case 'ADD_GROUP': {
         return { ...state,
-          user: [...user.groups, action.payload]
+          groups: [...state.groups, {_id:action.payload._id, groupName:action.payload.groupname,
+                                    plans:action.payload.plans, members:action.payload.members}]
         }
 
+      }
+      case 'ADD_GROUP_FAILED': {
+        return {
+          ...state
+        }
       }
       case 'ADD_EVENT': {
         return {

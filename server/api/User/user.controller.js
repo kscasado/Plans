@@ -65,17 +65,14 @@ controller.addEvent = (req, res) => {
 }
 controller.addGroup = (req, res) => {
   var newGroup = new Group()
-  console.log(req.body)
+
   newGroup.groupname = req.body.groupName
   newGroup.members = req.body.memberIDs
-  console.log(newGroup.groupName)
   newGroup.save((err, group) => {
-    console.log(group)
     req.user.groups.push(group)
     req.user.save((err, user) =>{
       if(err){ return next(err)}
-      console.log('in here')
-      console.log(group)
+
       res.json(group)
     })
   })

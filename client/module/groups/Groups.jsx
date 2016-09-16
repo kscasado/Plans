@@ -29,32 +29,49 @@ export default class Groups extends React.Component {
       }
     })
   }
+  _generateGroupElement(){
+
+  }
   _addGroup(){
-    console.log(this.props.user)
+
     if(!this.props.params.hasGroups){
       this.props.dispatch(addGroup(this.props.user._id,
                                     this.props.user._id, 'Default Group'))
     }
   }
+  _generateGroupElement(user){
+    if(user.groups.length==0){
+      return <br></br>
+    }
+    else{
+      let groupList = []
+      for(var group of user.groups){
+        const groupElement =
+          <div className='mdl-card mdl-cell mdl-shadow--4dp'>
+            <div className='mdl-card_title mdl-card--expand'>
+              group.groupName
+            </div>
+          </div>
+          groupList.push(groupElement)
+      }
+      return groupList
+    }
+  }
   render () {
     const { user } = this.props
-
-    var NoGroupElement
-    if ( true) {
-    //if (user.groups.length===0) {
-      NoGroupElement =
+    var groupElement = this._generateGroupElement(user)
+    var addGroupElement =
       <div className="mdl-typography--text-center">
-        <h2>You have no groups, would you like to create one?</h2>
-          <button onClick={this._addGroup.bind(this)} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+        <button onClick={this._addGroup.bind(this)} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
             <i className="material-icons">add</i>
           </button>
         </div>
-    }
+
     return (
       <div>
         <h2>Groups</h2>
-        {NoGroupElement}
-        <strong>{user.groups}</strong>
+        {groupElement}
+        {addGroupElement}
       </div>
     )
   }
