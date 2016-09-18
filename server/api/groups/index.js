@@ -4,7 +4,7 @@
 */
 
 import express from 'express'
-import controller from './group.controller'
+import controller from './groups.controller'
 const router = express.Router()
 router.get('/:userid', controller.getGroupsContainingUser)
 
