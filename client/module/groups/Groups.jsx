@@ -34,7 +34,7 @@ export default class Groups extends React.Component {
       let groupList = []
       for (var thisGroup of group.groups) {
         const groupElement =
-          <div className='mdl-card mdl-cell mdl-shadow--4dp'>
+          <div key={thisGroup._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
             <div className='mdl-card_title mdl-card--expand'>
               {thisGroup.groupname}
             </div>

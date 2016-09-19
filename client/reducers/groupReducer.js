@@ -5,6 +5,7 @@ export default function reducer(state = {
   switch (action.type) {
     case 'GET_GROUPS_WITH_USER': {
       var newList = [...state.groups]
+      //iterate through arraylist and add to state
       for(var group of action.payload) {
         newList.push({
           _id: group._id,
