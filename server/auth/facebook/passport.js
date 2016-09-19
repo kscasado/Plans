@@ -22,7 +22,6 @@ export default (User, config) => {
         return err
       }
       var newUser = new User()
-      console.log(profile.photos[0].value)
       newUser.facebook.id = profile.id
       newUser.facebook.token = accessToken
       newUser.facebook.imageUrl = profile.photos[0].value

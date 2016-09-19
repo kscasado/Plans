@@ -7,7 +7,7 @@ import { getGroupsfromUser } from '../../actions/groupAction'
 @connect((store) => {
   return{
     user: store.user,
-    groups: store.groups
+    group: store.group
   }
 })
 export default class Groups extends React.Component {
@@ -18,47 +18,45 @@ export default class Groups extends React.Component {
 
   }
   _getGroups () {
-    const { user } = this.props
-    this.props.dispatch(getGroups(user._id))
+    const { user, group } = this.props
+    if (user.isFetched && !group.isFetched) {
+      this.props.dispatch(getGroupsfromUser(user._id))
+    }
   }
-  _generateGroupElement(){
-
-  }
-  _addGroup(){
-
-    if(!this.props.params.hasGroups){
-      this.props.dispatch(addGroup(this.props.user._id,
+  _addGroup () {
+    this.props.dispatch(addGroup(this.props.user._id,
                                     this.props.user._id, 'Default Group'))
-    }
   }
-  _generateGroupElement(user){
-    if(user.groups.length==0){
+  _generateGroupElement (group) {
+    if (!group.isFetched) {
       return <br></br>
-    }
-    else{
+    } else {
       let groupList = []
-      for(var group of user.groups){
+      for (var thisGroup of group.groups) {
         const groupElement =
           <div className='mdl-card mdl-cell mdl-shadow--4dp'>
             <div className='mdl-card_title mdl-card--expand'>
-              {group.groupname}
+              {thisGroup.groupname}
             </div>
           </div>
-          groupList.push(groupElement)
+        groupList.push(groupElement)
       }
       return groupList
     }
   }
   render () {
-    const { user } = this.props
+    const { user, group } = this.props
+    //console.log('groups: '+group)
     this._getGroups()
-    var groupElement = this._generateGroupElement(user)
+    var groupElement = this._generateGroupElement(group)
     var addGroupElement =
       <div className="mdl-typography--text-center">
+        <label htmlFor='newGroupName' className='mdl-textfield__label'>New Group Name</label>
+        <input className='mdl-textfield__input' placeholder='Enter New Group Name' ref='searchTerm' />
         <button onClick={this._addGroup.bind(this)} className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
             <i className="material-icons">add</i>
-          </button>
-        </div>
+        </button>
+      </div>
 
     return (
       <div>

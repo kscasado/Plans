@@ -4,9 +4,7 @@ import Plans from '../../models/plans.js'
 const controller = {}
 
 controller.userParam = (req,res,next,id) => {
-  console.log(id)
-
-  var query = User.findOne({'_id':id})
+    var query = User.findOne({'_id':id})
     query.exec((err, user) => {
       if(err){ return next(err)}
       if(!user){
@@ -47,8 +45,6 @@ controller.getPlans = (req, res) => {
     if (err) {
       res.send(err)
     } else {
-      console.log(user)
-      console.log(user.plans)
       res.json(user.plans)
     }
   })

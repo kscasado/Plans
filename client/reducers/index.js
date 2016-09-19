@@ -6,5 +6,6 @@ import group from './groupReducer'
 
 export default combineReducers({
   user,
+  group,
   routing:routerReducer
 })

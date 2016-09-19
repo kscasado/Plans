@@ -1,6 +1,7 @@
 /*
   Routes: /api/yelp
           /api/users
+          /api/groups
 */
 import express from 'express'
 import yelpRouter from './yelp/index.js'
