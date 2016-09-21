@@ -44,6 +44,7 @@ const CreatePlan = React.createClass({
     Create a businessList based on the state
 
   */
+  //renders the businesses
   createList () {
     const { businesses }= this.state
     if(!businesses){
@@ -56,7 +57,7 @@ const CreatePlan = React.createClass({
         const businessElement = (
 
 
-          <div className='mdl-card mdl-cell mdl-shadow--4dp'>
+          <div key={business.id} className='mdl-card mdl-cell mdl-shadow--4dp'>
             <div className='mdl-card_media'>
               <img src={business.image_url} className='img-responsive'/>
               </div>
@@ -74,9 +75,10 @@ const CreatePlan = React.createClass({
                 </ul>
             </div>
             <div className='mdl-layout-spacer'></div>
-          <div className ="mdl-card_menu">
-            <button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-              <i className="material-icons">note add</i>
+          <div id="AddPlanIcon" className="mdl-card_menu">
+            <button onClick={this._addPlan.bind(this,business)}id="AddPlanIcon" className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+              <i id="AddPlanIcon" className="material-icons">add</i>
+              <span class="mdl-tooltip" for="AddPlanIcon">Add This Plan</span>
 
             </button>
             <button className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
@@ -107,6 +109,10 @@ const CreatePlan = React.createClass({
 
 
   */
+  _addPlan(business){
+    console.log(business)
+
+  },
   _searchYelp(event){
     event.preventDefault()
     const {searchTerm,locationTerm} = this.refs

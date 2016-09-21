@@ -61,8 +61,8 @@ export default class Groups extends React.Component {
     return (
       <div>
         <h2>Groups</h2>
-        {groupElement}
         {addGroupElement}
+        {groupElement}
       </div>
     )
   }
