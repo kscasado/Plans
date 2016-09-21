@@ -1,13 +1,13 @@
 import React from 'react'
-import $ from 'jquery'
+
 import { connect } from 'react-redux'
 import SearchForm from './SearchForm.jsx'
 import { getBusinessesFromYelp } from '../../actions/eventAction.js'
 @connect((store) => {
     return{
     user: store.user,
-    plans: store.plans
-    //form: store.form
+    plans: store.plans,
+    form: store.form
     }
 })
 export default class CreatePlan extends React.Component{
@@ -19,7 +19,7 @@ export default class CreatePlan extends React.Component{
       <div className='mdl-grid'>
         <div className='text-center'>
 
-            <SearchForm onSubmit={this.handleSubmit.bind(this)}/>
+            <SearchForm onSubmit={this._handleSubmit.bind(this)}/>
 
           <div className='mdl-grid'>
             {businesses}
@@ -35,10 +35,12 @@ export default class CreatePlan extends React.Component{
 
 
   }
-  handleSubmit (event, data) {
-    event.preventDefault()
-    console.log(event)
-  }
+   _handleSubmit () {
+    const { form, dispatch } = this.props
+    console.log(form.SearchForm.values)
+      dispatch(getBusinessesFromYelp(form.SearchForm.values.locationTerm,
+              form.SearchForm.values.searchTerm))
+}
   /*
     Create a businessList based on the state
 
@@ -68,7 +70,7 @@ export default class CreatePlan extends React.Component{
                 <img className='text-right' src={business.rating_img_url} className='img-responsive' />
                 <ul className='list-inline'>
                   {business.categories.map(function(categorie, i){
-                    return <li>{categorie[0]} |</li>
+                    return <li key={i}>{categorie[0]} </li>
                   })}
 
                 </ul>
@@ -102,20 +104,7 @@ export default class CreatePlan extends React.Component{
 
   */
   _addPlan(business){
-    this.props.dispatch()
-
-
-  }
-  _searchYelp(event){
-    //console.log(this.refs)
-    event.preventDefault()
-    const { searchTerm,locationTerm }   = this.refs
-    if(!locationTerm.value){
-      this.getLocation(searchTerm.value)
-
-    }
-    this._getYelpResults(locationTerm.value,searchTerm.value)
-
+    console.log(business)
 
   }
   /*
@@ -125,20 +114,14 @@ export default class CreatePlan extends React.Component{
   */
   _getLocation (searchTerm) {
     if (navigator.geolocation) {
-      var startPos;
-
+      var startPos
       var geoSuccess = function (position) {
         startPos = position
         getYelpResults(startPos,SearchTerm,true)
-
-
       }
       navigator.geolocation.getCurrentPosition(geoSuccess)
-
-    }
-    else {
+    } else {
       console.log('Geolocation is not supported for this Browser/OS version yet.')
-
     }
   }
   /*
@@ -146,7 +129,7 @@ export default class CreatePlan extends React.Component{
 
   */
   _getYelpResults(userLocation,SearchTerm,isLatLong){
-  this.props.dispatch(getGroupsFromUser(userLocation,SearchTerm))
+    this.props.dispatch(getGroupsFromUser(userLocation,SearchTerm))
 
   }
 }
