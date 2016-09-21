@@ -17,12 +17,13 @@ export default function reducer(state = {
       }
       case 'PLANS_FETCHED': {
         var newPlanList = []
-        for (var plan in action.payload) {
+        for (var newPlan of action.payload) {
+          console.log(newPlan)
           newPlanList.push({
-            _id: plan._id,
-            url: plan._url,
-            group: plan.group.groupname,
-            image: plan.imageUrl
+            _id: newPlan._id,
+            url: newPlan.url,
+            group: newPlan.group.groupname,
+            image: newPlan.imageUrl
           })
         }
         return {...state, plans: newPlanList, plansFetched: true}
@@ -33,4 +34,5 @@ export default function reducer(state = {
 
   }
   return state
+
 }

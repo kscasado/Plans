@@ -1,13 +1,15 @@
 import React from 'react'
-import $ from 'jquery'
+
 import { connect } from 'react-redux'
 import { browserHistory } from 'react-router'
 import { addGroup, getGroups } from '../../actions/userAction'
 import { getGroupsfromUser } from '../../actions/groupAction'
+import AddGroupForm from './addGroupForm.jsx'
 @connect((store) => {
   return{
     user: store.user,
-    group: store.group
+    group: store.group,
+    form: store.form
   }
 })
 export default class Groups extends React.Component {
@@ -24,9 +26,11 @@ export default class Groups extends React.Component {
     }
   }
   _addGroup () {
-    this.props.group.isFetched = false;
+    const { form } = this.props
+    //this.props.group.isFetched = false
     this.props.dispatch(addGroup(this.props.user._id,
-                                    this.props.user._id, 'Default Group'))
+                                  this.props.user._id,
+                                  form.AddGroupForm.values.NewGroupName))
   }
   _generateGroupElement (group) {
     if (!group.isFetched) {
@@ -47,7 +51,6 @@ export default class Groups extends React.Component {
   }
   render () {
     const { user, group } = this.props
-    //console.log('groups: '+group)
     this._getGroups()
     var groupElement = this._generateGroupElement(group)
     var addGroupElement =
@@ -62,7 +65,7 @@ export default class Groups extends React.Component {
     return (
       <div>
         <h2>Groups</h2>
-        {addGroupElement}
+        <AddGroupForm onSubmit={this._addGroup.bind(this)}/>
         {groupElement}
       </div>
     )
