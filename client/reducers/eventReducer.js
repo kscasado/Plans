@@ -3,17 +3,34 @@ export default function reducer(state = {
   businesses:[],
   businessesFetched:false,
   plansFetched:false,
+  searchTerm:null,
+  locationTerm:null,
   error: null
   }, action) {
   switch (action.type) {
       case 'GET_BUSINESSES': {
         //  iterate through arrayList and add to state
-        return{...state,businesses:action.payload,businessesFetched:true}
+        return{...state, businesses: action.payload, businessesFetched: true}
       }
       case 'GET_BUSINESSES_ERROR': {
-        return {...state, error:action.payload}
+        return {...state, error: action.payload}
+      }
+      case 'PLANS_FETCHED': {
+        var newPlanList = []
+        for (var plan in action.payload) {
+          newPlanList.push({
+            _id: plan._id,
+            url: plan._url,
+            group: plan.group.groupname,
+            image: plan.imageUrl
+          })
+        }
+        return {...state, plans: newPlanList, plansFetched: true}
+      }
+      case 'PLANS_FETCHED_ERROR': {
+        return {...state, error: action.payload}
       }
 
-    }
+  }
   return state
 }

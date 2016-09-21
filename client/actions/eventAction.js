@@ -16,3 +16,14 @@ export function getBusinessesFromYelp (userLocation, searchTerm){
               })
   }
 }
+export function getUsersPlans(userID){
+  return function (dispatch) {
+    axios.get('/api/plans/' + userID)
+      .then(response => {
+        dispatch({type: "PLANS_FETCHED", payload:response.data })
+      })
+      .catch(error => {
+        dispatch({type:"PLANS_FETCHED_ERROR", payload:error})
+      })
+  }
+}
