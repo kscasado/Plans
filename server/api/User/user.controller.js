@@ -1,8 +1,10 @@
 import User from '../../models/Users.js'
 import Group from '../../models/groups.js'
 import Plans from '../../models/plans.js'
+import PlanOption from '../../models/PlanOption.js'
 const controller = {}
-
+//This is used to pass on information about the
+//user to the request
 controller.userParam = (req,res,next,id) => {
     var query = User.findOne({'_id':id})
     query.exec((err, user) => {
@@ -14,6 +16,7 @@ controller.userParam = (req,res,next,id) => {
       return next()
     })
 }
+
 controller.getUser = (req, res) => {
   User.findOne({'_id': req.params.id}, (err, user) => {
     if (err) {
@@ -23,6 +26,7 @@ controller.getUser = (req, res) => {
     }
   })
 }
+//get all the information about the user
 controller.me = (req, res) => {
   res.json(req.user)
 }
@@ -49,15 +53,23 @@ controller.getPlans = (req, res) => {
     }
   })
 }
-controller.addEvent = (req, res) => {
-  var newEvent = new Plan(req.body)
-  newEvent.save((err, plan) => {
-    if(err){ return next(err)}
-    req.user.events.push(plan)
-    req.user.save((err, user) =>{
-      if(err){ return next(err)}
-      res.json(plan)
-    })
+//Add a new Plan Option and associate
+controller.addPlanOption = (req, res) => {
+  console.log(req.body)
+  var newPlan = new Plan()
+  var business = req.body.business
+  var newPlanOption = new PlanOption();
+  newPlanOption.address = business.location.address
+  newPlanOption.city = business.location.city
+  newPlanOption.imageUrl = business.imageUrl
+  newPlanOption.url = business.url
+  newPlanOption.group = req.body.groupID
+  newPlanOption.save((err,plaOption) => {
+    if(err){
+      return next (new Error('can\'t find user'))
+    }
+    req.user.planOptions.push(planOption)
+    res.json(planOption)
   })
 }
 controller.addGroup = (req, res) => {

@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
 import group from './groups.js'
 var PlanOptionSchema = new mongoose.Schema({
-  date: Date,
-  group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-  options: [String],
-  votes: [Number],
-  winner:String
+  address: String,
+  city: String,
+  url: String,
+  imageURL: String,
+  group:{type: mongoose.Schema.Types.ObjectId, ref: 'group'}
+
 })
 
-mongoose.model('PlanOption', PlanSchema)
+mongoose.model('PlanOption', PlanOptionSchema)

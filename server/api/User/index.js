@@ -16,6 +16,6 @@ router.get('/:id', controller.getUser)
 router.get('/me', controller.me)
 router.get('/:id/groups', controller.getGroups)
 router.get('/:id/plans', controller.getPlans)
-router.post('/:id/addEvent', controller.addEvent)
+router.post('/:id/addPlanOption', controller.addPlanOption)
 router.post('/:id/addGroup', controller.addGroup)
 export default router
