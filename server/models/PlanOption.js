@@ -9,4 +9,4 @@ var PlanOptionSchema = new mongoose.Schema({
 
 })
 
-mongoose.model('PlanOption', PlanOptionSchema)
+module.exports = mongoose.model('PlanOption', PlanOptionSchema)

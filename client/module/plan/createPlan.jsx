@@ -1,19 +1,19 @@
 import React from 'react'
-
 import { connect } from 'react-redux'
 import SearchForm from './SearchForm.jsx'
+import { addPlanOption } from '../../actions/userAction.js'
 import { getBusinessesFromYelp } from '../../actions/eventAction.js'
+
 @connect((store) => {
-    return{
+  return {
     user: store.user,
     plans: store.plans,
     form: store.form
-    }
+  }
 })
-export default class CreatePlan extends React.Component{
 
-  render ( ) {
-
+export default class CreatePlan extends React.Component {
+  render () {
     const businesses = this._createList()
     return (
       <div className='mdl-grid'>
@@ -37,7 +37,6 @@ export default class CreatePlan extends React.Component{
   }
    _handleSubmit () {
     const { form, dispatch } = this.props
-    console.log(form.SearchForm.values)
       dispatch(getBusinessesFromYelp(form.SearchForm.values.locationTerm,
               form.SearchForm.values.searchTerm))
 }
@@ -100,12 +99,11 @@ export default class CreatePlan extends React.Component{
   }
   /*
     get the yelp results given the location and search term
-
-
   */
-  _addPlan(business){
-    console.log(business)
-
+  _addPlan (business) {
+    const { user } = this.props
+    console.log(user.groups[0])
+    this.props.dispatch(addPlanOption(user._id, user.groups[0], business))
   }
   /*
     gets the location is no location is entered

@@ -12,10 +12,11 @@ import express from 'express'
 import controller from './user.controller'
 const router = express.Router()
 router.param('id', controller.userParam)
+router.param('groupid', controller.groupParam)
 router.get('/:id', controller.getUser)
 router.get('/me', controller.me)
 router.get('/:id/groups', controller.getGroups)
 router.get('/:id/plans', controller.getPlans)
-router.post('/:id/addPlanOption', controller.addPlanOption)
+router.post('/:id/group/:groupid/addPlanOption', controller.addPlanOption)
 router.post('/:id/addGroup', controller.addGroup)
 export default router

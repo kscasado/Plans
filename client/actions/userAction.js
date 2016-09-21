@@ -41,15 +41,18 @@ export function getEvents (userID) {
 /*
   add a Event to the users eventList given the Event information
 */
-export function addEvent (userID, Event) {
-  return function(dispatch){
-    axios.post('/api/users/' + userID + '/addEvent', {
-      userEvent: Event
+export function addPlanOption (userID,groupID, Event) {
+  return function (dispatch) {
+
+    axios.post('/api/users/' + userID + '/group/'+groupID + '/addPlanOption', {
+      business: Event
     })
     .then(response => {
-      dispatch({type: "ADD_EVENT", payload:response})
+      console.log(response+'in response')
+      dispatch({type: "ADD_EVENT", payload:response.data})
     })
     .catch(error => {
+      console.log(error)
       dispatch({type:"ADD_EVENT_ERROR", payload:error})
     })
   }

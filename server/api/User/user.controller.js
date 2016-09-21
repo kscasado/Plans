@@ -5,32 +5,34 @@ import PlanOption from '../../models/PlanOption.js'
 const controller = {}
 //This is used to pass on information about the
 //user to the request
-controller.userParam = (req,res,next,id) => {
-    var query = User.findOne({'_id':id})
-    query.exec((err, user) => {
-      if(err){ return next(err)}
-      if(!user){
-        return next(new Error('can\'t find user'))
-      }
+controller.userParam = (req, res, next, id) => {
+  var query = User.findOne({'_id': id})
+  query.exec((err, user) => {
+    if (err) {
+      return next(err)
+    }
+    if (!user) {
+      return next(new Error('can\'t find user'))
+    }
       req.user = user
       return next()
     })
 }
 //Used to pass on information about the group
 //to the reques
-controller.groupParam = (req,res,next,id) => {
+controller.groupParam = (req, res, next, id) => {
   var query = Group.findOne({'_id':id})
-  query.exec((err,group) => {
-    if(err){ return next(err)}
-    if(!user){
+  query.exec((err, group) => {
+    if(err) {
+      return next(err)
+    }
+    if (!group) {
       return next(new Error('can\'t find user'))
     }
     req.group = group
     return next()
-
   })
 }
-
 controller.getUser = (req, res) => {
   User.findOne({'_id': req.params.id}, (err, user) => {
     if (err) {
@@ -70,22 +72,29 @@ controller.getPlans = (req, res) => {
 //Add a new Plan Option and add references to user and gorup
 
 controller.addPlanOption = (req, res) => {
-  console.log(req.body)
-  var newPlan = new Plan()
   var business = req.body.business
-  var newPlanOption = new PlanOption();
+  var newPlanOption = new PlanOption()
   newPlanOption.address = business.location.address
   newPlanOption.city = business.location.city
-  newPlanOption.imageUrl = business.imageUrl
+  newPlanOption.imageUrl = business.image_url
   newPlanOption.url = business.url
   newPlanOption.group = req.group._id
-  newPlanOption.save((err,plaOption) => {
+  newPlanOption.save((err, PlanOption) => {
     if(err){
-      return next (new Error('can\'t find user'))
+      return next (new Error('can\'t save Plan'))
     }
-    req.user.planOptions.push(planOption)
-    req.group.planOptions.push(planOption)
-    res.json(planOption)
+
+    req.user.planOptions.push(PlanOption)
+    req.user.save((err, user) => {
+      if(err){ return next (new Error('unable to save User'))}
+      if(!user){ return next (new Error('unable to find User'))}
+      req.group.planOptions.push(PlanOption)
+      req.group.save((err,group) => {
+        if(err) { return next(err)}
+        if(!group) { return new Error('unable to save group')}
+        res.json(PlanOption)
+      })
+    })
   })
 }
 controller.addGroup = (req, res) => {

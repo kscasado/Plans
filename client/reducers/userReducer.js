@@ -13,7 +13,7 @@ export default function reducer(state={
     members: [],
     plans: []
   }],
-  plans: null,
+  plans: [],
   isFetched:false,
   hasGroups: false,
   hasEvents: false}, action) {
@@ -38,7 +38,7 @@ export default function reducer(state={
       case 'ADD_EVENT': {
         return {
           ...state,
-          user: [...user.events, action.payload]
+          plans: [...state.plans, action.payload._id]
         }
       }
       case 'GET_GROUPS': {
@@ -49,5 +49,5 @@ export default function reducer(state={
       }
 
     }
-    return state
+  return state
 }
