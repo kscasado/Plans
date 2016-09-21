@@ -1,25 +1,19 @@
-export default function reducer(state={
-  planEvent:{
-    id: null,
-    winner: null,
-    options: null,
-    group: null
-
-  },
-  hasWinner: false}, action) {
-    switch (action.type) {
-      case '': {
-
+export default function reducer(state = {
+  plans:[],
+  businesses:[],
+  businessesFetched:false,
+  plansFetched:false,
+  error: null
+  }, action) {
+  switch (action.type) {
+      case 'GET_BUSINESSES': {
+        //  iterate through arrayList and add to state
+        return{...state,businesses:action.payload,businessesFetched:true}
       }
-      case '': {
-
+      case 'GET_BUSINESSES_ERROR': {
+        return {...state, error:action.payload}
       }
-      case '': {
 
-      }
-      case '': {
-
-      }
     }
-    return state
+  return state
 }

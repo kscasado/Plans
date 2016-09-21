@@ -1,53 +1,52 @@
 import React from 'react'
 import $ from 'jquery'
-const CreatePlan = React.createClass({
+import { connect } from 'react-redux'
+import SearchForm from './SearchForm.jsx'
+import { getBusinessesFromYelp } from '../../actions/eventAction.js'
+@connect((store) => {
+    return{
+    user: store.user,
+    plans: store.plans
+    //form: store.form
+    }
+})
+export default class CreatePlan extends React.Component{
+
   render ( ) {
 
-    const businesses = this.createList()
+    const businesses = this._createList()
     return (
       <div className='mdl-grid'>
         <div className='text-center'>
 
+            <SearchForm onSubmit={this.handleSubmit.bind(this)}/>
 
-              <form className='form-inline' onSubmit={this._searchYelp}>
-                <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
-                  <label htmlFor='searchTerm' className='mdl-textfield__label'> Enter Search Term </label>
-                  <input className='mdl-textfield__input' placeholder='Enter Search Term' ref='searchTerm' />
-                  </div>
-                  <div className='mdl-textfield mdl-js-textfield mdl-textfield--floating-label'>
-
-                  <label htmlFor='locationTerm' className='mdl-textfield__label'> Enter Location </label>
-                  <input className='mdl-textfield__input' placeholder='Enter Location' ref='locationTerm' />
-                  </div>
-                  <div className='text-center'>
-                  <button type="submit" className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
-                    <i className="material-icons">search</i>
-
-                  </button>
-                </div>
-          </form>
           <div className='mdl-grid'>
             {businesses}
           </div>
         </div>
       </div>
     )
-  },
+  }
   componentWillMount () {
 
-  },
+  }
   componentWillUnmount () {
 
 
-  },
+  }
+  handleSubmit (event, data) {
+    event.preventDefault()
+    console.log(event)
+  }
   /*
     Create a businessList based on the state
 
   */
   //renders the businesses
-  createList () {
-    const { businesses }= this.state
-    if(!businesses){
+  _createList () {
+    const { businesses }= this.props.plans
+    if(businesses.length === 0){
       return<br></br>
     }
     else{
@@ -96,34 +95,29 @@ const CreatePlan = React.createClass({
       return businessList
     }
 
-  },
-  getInitialState(){
-    return{
-      businesses: null,
-      error: false,
-      loading: true
-    }
-  },
+  }
   /*
     get the yelp results given the location and search term
 
 
   */
   _addPlan(business){
-    console.log(business)
+    this.props.dispatch()
 
-  },
+
+  }
   _searchYelp(event){
+    //console.log(this.refs)
     event.preventDefault()
-    const {searchTerm,locationTerm} = this.refs
+    const { searchTerm,locationTerm }   = this.refs
     if(!locationTerm.value){
       this.getLocation(searchTerm.value)
 
     }
-    this.getYelpResults(locationTerm.value,searchTerm.value)
+    this._getYelpResults(locationTerm.value,searchTerm.value)
 
 
-  },
+  }
   /*
     gets the location is no location is entered
 
@@ -146,26 +140,13 @@ const CreatePlan = React.createClass({
       console.log('Geolocation is not supported for this Browser/OS version yet.')
 
     }
-  },
+  }
   /*
     uses yelp api to get search result and populate state with business list
-    //TODO: replace with redux
+
   */
-  getYelpResults(userLocation,SearchTerm,isLatLong){
+  _getYelpResults(userLocation,SearchTerm,isLatLong){
+  this.props.dispatch(getGroupsFromUser(userLocation,SearchTerm))
 
-    $.ajax({
-      method: 'GET',
-      url: '/api/yelp/search',
-      data:{location:userLocation, term:SearchTerm,isLatLong: isLatLong}
-
-    }).done((result) => {
-        this.setState({businesses: result})
-
-    }).fail((er) => {
-      console.log(er)
-    })
   }
-
-})
-
-module.exports = CreatePlan
+}

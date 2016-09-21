@@ -21,7 +21,7 @@ export default function reducer(state={
       case 'GET_USER': {
 
         return {...state,_id:action.payload._id, facebook: action.payload.facebook,
-                        groups: action.payload.groups, plans: action.payload.plans, isFetched:true}
+                        groups: action.payload.groups, plans: action.payload.planOptions, isFetched:true}
       }
       case 'ADD_GROUP': {
         return { ...state,

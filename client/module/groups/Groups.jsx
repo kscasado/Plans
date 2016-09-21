@@ -24,6 +24,7 @@ export default class Groups extends React.Component {
     }
   }
   _addGroup () {
+    this.props.group.isFetched = false;
     this.props.dispatch(addGroup(this.props.user._id,
                                     this.props.user._id, 'Default Group'))
   }

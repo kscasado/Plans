@@ -16,6 +16,20 @@ controller.userParam = (req,res,next,id) => {
       return next()
     })
 }
+//Used to pass on information about the group
+//to the reques
+controller.groupParam = (req,res,next,id) => {
+  var query = Group.findOne({'_id':id})
+  query.exec((err,group) => {
+    if(err){ return next(err)}
+    if(!user){
+      return next(new Error('can\'t find user'))
+    }
+    req.group = group
+    return next()
+
+  })
+}
 
 controller.getUser = (req, res) => {
   User.findOne({'_id': req.params.id}, (err, user) => {
@@ -45,7 +59,7 @@ controller.getGroups = (req, res) => {
   })
 }
 controller.getPlans = (req, res) => {
-  User.findOne({'_id': req.params.id}, 'plans', (err, user) => {
+  User.findOne({'_id': req.params.id}, 'planOptions', (err, user) => {
     if (err) {
       res.send(err)
     } else {
@@ -53,7 +67,8 @@ controller.getPlans = (req, res) => {
     }
   })
 }
-//Add a new Plan Option and associate
+//Add a new Plan Option and add references to user and gorup
+
 controller.addPlanOption = (req, res) => {
   console.log(req.body)
   var newPlan = new Plan()
@@ -63,12 +78,13 @@ controller.addPlanOption = (req, res) => {
   newPlanOption.city = business.location.city
   newPlanOption.imageUrl = business.imageUrl
   newPlanOption.url = business.url
-  newPlanOption.group = req.body.groupID
+  newPlanOption.group = req.group._id
   newPlanOption.save((err,plaOption) => {
     if(err){
       return next (new Error('can\'t find user'))
     }
     req.user.planOptions.push(planOption)
+    req.group.planOptions.push(planOption)
     res.json(planOption)
   })
 }

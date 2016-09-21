@@ -1,11 +1,14 @@
 import { combineReducers } from 'redux'
 import {routerReducer} from 'react-router-redux'
-import events from './eventReducer'
+import { reducer as formReducer } from 'redux-form'
+import plans from './eventReducer'
 import user from './userReducer'
 import group from './groupReducer'
 
 export default combineReducers({
   user,
   group,
-  routing:routerReducer
+  plans,
+  form: formReducer,
+  routing: routerReducer
 })

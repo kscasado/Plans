@@ -14,8 +14,9 @@ const rootRoute = (
   <Provider store={store}>
   <Router history={history}>
     <Route path='/' component={Layout}>
-      <IndexRoute component={CreatePlan} />
+      //<IndexRoute component={CreatePlan} />
       <Route path='users/:userID/groups' component={Groups} />
+      <Route path='users/:userID/plans' component={CreatePlan} />
       <Route path='hello' component={Groups} />
       <Route path='*' handler={PageNotFound} />
     </Route>
