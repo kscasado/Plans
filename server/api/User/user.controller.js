@@ -76,9 +76,10 @@ controller.addPlanOption = (req, res) => {
   var newPlanOption = new PlanOption()
   newPlanOption.address = business.location.address
   newPlanOption.city = business.location.city
-  newPlanOption.imageUrl = business.image_url
+  newPlanOption.imageURL = business.image_url
   newPlanOption.url = business.url
   newPlanOption.group = req.group._id
+  newPlanOption.title = business.name
   newPlanOption.save((err, PlanOption) => {
     if(err){
       return next (new Error('can\'t save Plan'))

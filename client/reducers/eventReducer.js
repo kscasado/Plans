@@ -20,10 +20,13 @@ export default function reducer(state = {
         for (var newPlan of action.payload) {
           console.log(newPlan)
           newPlanList.push({
+
             _id: newPlan._id,
+            title: newPlan.title,
             url: newPlan.url,
             group: newPlan.group.groupname,
-            image: newPlan.imageUrl
+            image: newPlan.imageURL,
+            address:newPlan.address + ',' + newPlan.city
           })
         }
         return {...state, plans: newPlanList, plansFetched: true}

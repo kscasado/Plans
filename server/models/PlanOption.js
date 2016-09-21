@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 var PlanOptionSchema = new mongoose.Schema({
+  title: String,
   address: String,
   city: String,
   url: String,
