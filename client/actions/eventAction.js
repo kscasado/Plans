@@ -1,11 +1,11 @@
 import axios from 'axios'
 //  use yelp query to get businesses given location and search term
-export function getBusinessesFromYelp (userLocation, searchTerm){
+export function getBusinessesFromYelp (userLocation, searchTerm, isLatLong){
   return function (dispatch) {
     axios.get('/api/yelp/search', {
               params: {
                 location: userLocation,
-                term: searchTerm
+                  term: searchTerm
               }
               })
               .then((response) => {
@@ -16,7 +16,8 @@ export function getBusinessesFromYelp (userLocation, searchTerm){
               })
   }
 }
-export function getUsersPlans(userID){
+
+export function getUsersPlans (userID){
   return function (dispatch) {
     axios.get('/api/plans/' + userID)
       .then(response => {

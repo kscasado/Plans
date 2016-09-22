@@ -6,7 +6,6 @@ const AddGroupForm = (props) => {
   return (
       <form onSubmit={handleSubmit}>
         <div className="mdl-typography--text-center">
-          <label htmlFor='newGroupName' className='mdl-textfield__label'>New Group Name</label>
           <Field component="input" className='mdl-textfield__input' placeholder='Enter New Group Name' name='NewGroupName' />
           <button type="submit" className="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
               <i className="material-icons">add</i>

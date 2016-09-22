@@ -14,8 +14,10 @@ export default class Nav extends React.Component {
   render () {
     const content = this.props.children
     var userComponent
-    const {user} = this.props
-
+    const { user } = this.props
+    if(cookie.load('token') && !user.isFetched){
+      this.getUserData(jwtDecode(cookie.load('token'))._id)
+    }
     if (user.isFetched) {
 
       var planLink = 'users/'+user._id+'/plans'
@@ -27,7 +29,8 @@ export default class Nav extends React.Component {
         <strong> | </strong>
         <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge={`${user.groups.length}`}><strong>Groups</strong></Link>
         <br></br>
-      <a href='/auth/logout'><strong>LogOut</strong></a>
+      <button onClick={this._logout.bind(this)} className='mdl-button mdl-js-button mdl-button--raise
+        mdl-button--colored'>LogOut</button>
       </div>
     } else {
       userComponent = <a href='/auth/facebook'>Facebook Login</a>
@@ -41,21 +44,17 @@ export default class Nav extends React.Component {
     </div>
     )
   }
+  _logout () {
+    cookie.remove('token')
+    this.props.dispatch({type:'USER_LOGOUT', payload:true})
+  }
   getUserData (_id) {
     this.props.dispatch(getUser(_id))
 
-    // $.ajax({
-    //   method: 'GET',
-    //   url: '/api/users/' + _id
-    //
-    // }).done((result) => {
-    //   this.setState({user: result})
-    // })
+
   }
 
   componentWillMount () {
-    if(cookie.load('token')){
-      this.getUserData(jwtDecode(cookie.load('token'))._id)
-    }
+
   }
 }

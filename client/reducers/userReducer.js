@@ -14,9 +14,8 @@ export default function reducer(state={
     plans: []
   }],
   plans: [],
-  isFetched:false,
-  hasGroups: false,
-  hasEvents: false}, action) {
+  isFetched:false
+  }, action) {
     switch (action.type) {
       case 'GET_USER': {
 
@@ -46,6 +45,26 @@ export default function reducer(state={
           ...state,
           groups: action.payload.data
         }
+      }
+      //set all values back to initiali
+      case 'USER_LOGOUT': {
+        return {...state,
+          _id: null,
+          facebook:{
+            id: null,
+            imageUrl: null,
+            name: null,
+            token: null,
+            email: null
+          },
+          groups: [{
+            _id: null,
+            groupName: null,
+            members: [],
+            plans: []
+          }],
+          plans: [],
+          isFetched: false}
       }
 
     }

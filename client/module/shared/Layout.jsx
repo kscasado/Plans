@@ -1,15 +1,20 @@
 import React from 'react'
 import Nav from './Nav.jsx'
+import { Link } from 'react-router'
 class Layout extends React.Component {
   render() {
     const content = this.props.children
 
     return (
       <div className = 'mdl-layout mdl-js-layout'>
-        <h2 className='mdl-typography--text-center mdl-layout__header'>Lets Make Plans</h2>
-        <Nav />
 
-      {content}
+        <Link to={'/'}><h2 className='mdl-typography--text-center
+          mdl-layout__header'>Lets Make Plans</h2></Link>
+
+        <Nav />
+        <div className = 'mdl-layout-spacer'>
+          {content}
+        </div>
       </div>
     )
   }

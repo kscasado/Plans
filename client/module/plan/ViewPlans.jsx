@@ -57,9 +57,9 @@ export default class ViewPlans extends React.Component {
       return <br></br>
     }
   }
-  _getPlans(){
+  //  dispatch to the getUserPlans to get the users plans from redux layer
+  _getPlans () {
     const { user, plans } = this.props
-    console.log(user.isFetched && !plans.plansFetched)
     if(user.isFetched && !plans.plansFetched){
       this.props.dispatch(getUsersPlans(user._id))
     }

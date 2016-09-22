@@ -1,6 +1,7 @@
 export default function reducer(state = {
   plans:[],
   businesses:[],
+  groupForPlan:null,
   businessesFetched:false,
   plansFetched:false,
   searchTerm:null,
@@ -18,7 +19,6 @@ export default function reducer(state = {
       case 'PLANS_FETCHED': {
         var newPlanList = []
         for (var newPlan of action.payload) {
-          console.log(newPlan)
           newPlanList.push({
 
             _id: newPlan._id,
@@ -34,7 +34,9 @@ export default function reducer(state = {
       case 'PLANS_FETCHED_ERROR': {
         return {...state, error: action.payload}
       }
-
+      case 'CHANGE_GROUP_FOR_PLAN': {
+        return { ...state, groupForPlan: action.payload }
+      }
   }
   return state
 
