@@ -6,7 +6,9 @@ Plans is a social application where friends can make groups and  make plans. It 
   1. A user can Log in and Logout, They Log in via facebook.
   2. A user can add Groups with a specific title
   3. A user can search for businesses and add them to a particular group
-  4. A user can view the groups and plans that they have made.
+  4. A user can view the groups and plans that they have made
+
+
 ### Future Implementations
   1. Be able to add members to groups
   2. Be able to have voting on plans
