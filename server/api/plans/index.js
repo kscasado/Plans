@@ -4,7 +4,7 @@
 */
 
 import express from 'express'
-import controller from './plan.controller'
+import controller from './plan.controller.js'
 const router = express.Router()
 router.get('/:userid', controller.getUsersPlans)
 

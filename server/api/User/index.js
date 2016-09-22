@@ -9,7 +9,7 @@
 */
 
 import express from 'express'
-import controller from './user.controller'
+import controller from './user.controller.js'
 const router = express.Router()
 router.param('id', controller.userParam)
 router.param('groupid', controller.groupParam)
