@@ -1,6 +1,7 @@
 import express from 'express'
 import db from 'mongoose'
 import path from 'path'
+import config from '../config.config.json'
 import webpack from 'webpack'
 import bodyParser from 'body-parser'
 import webpackMiddleware from 'webpack-dev-middleware'
@@ -9,6 +10,8 @@ import webpackconfig from '../webpack.config.js'
 
 import authRouter from './auth'
 import apiRouter from './api'
+const PORT = Number(process.env.PORT || 3000)
+var isDeveloping = (PORT === 3000) ? true : false
 const compiler = webpack(webpackconfig)
 const middleware = webpackMiddleware(compiler, {
   publicPath: webpackconfig.output.publicPath,
@@ -22,7 +25,11 @@ const middleware = webpackMiddleware(compiler, {
     modules: false
   }
 })
-db.connect('mongodb://localhost/plans')
+if(isDeveloping) {
+  db.connect('mongodb://localhost/plans')
+} else{
+  db.connect(config.db.url)
+}
 const app = express()
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
@@ -35,5 +42,5 @@ app.get('*', function response (req, res) {
   res.end()
 })
 
-const port = 3000
-app.listen(port, () => console.log(`Running on port ${port}`))
+
+app.listen(PORT, () => console.log(`Running on port ${port}`))
