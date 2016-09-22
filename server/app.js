@@ -43,4 +43,4 @@ app.get('*', function response (req, res) {
 })
 
 
-app.listen(PORT, () => console.log(`Running on port ${port}`))
+app.listen(PORT, () => console.log(`Running on port ${PORT}`))

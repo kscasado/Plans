@@ -26,4 +26,5 @@
   "secret": "SECRET",
   "db" : {
     "url" : "mongodb://heroku_4gvjmj7r:q30u0j8c4nj2tknpe3eacu72rv@ds035796.mlab.com:35796/heroku_4gvjmj7r"
+  }
 }
