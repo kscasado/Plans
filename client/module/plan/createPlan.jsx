@@ -16,7 +16,7 @@ import { getGroupsfromUser } from '../../actions/groupAction.js'
 
 export default class CreatePlan extends React.Component {
   componentWillMount () {
-    this.setState({GroupAddValue: 'null'})
+
   }
 
   render () {
@@ -119,8 +119,9 @@ export default class CreatePlan extends React.Component {
     get the yelp results given the location and search term
   */
   _addPlan (business) {
-    const { user, plan } = this.props
-    this.props.dispatch(addPlanOption(user._id, plan.groupForPlan, business))
+    const { user, plans } = this.props
+    var groupID= ((plans.groupForPlan) ? plans.groupForPlan : user.groups[0])
+    this.props.dispatch(addPlanOption(user._id, groupID, business))
   }
   _getGroups () {
     const { user, group } = this.props

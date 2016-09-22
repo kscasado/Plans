@@ -4,7 +4,8 @@ import Group from '../../models/groups.js'
 const controller = {}
 controller.getGroupsContainingUser = (req, res) => {
   Group.find({'members': req.params.userid})
-      .populate('members')//, ['facebook.name', 'facbook.imageUrl'])
+      .populate('members')
+      .populate('planOptions')
       .exec((err, groups) => {
         if (err) {
           return res.send(err)

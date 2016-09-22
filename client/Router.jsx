@@ -8,6 +8,7 @@ import Layout from './module/shared/Layout.jsx'
 import CreatePlan from './module/plan/createPlan.jsx'
 import Groups from './module/groups/Groups.jsx'
 import ViewPlans from './module/plan/ViewPlans.jsx'
+import LogoutComponent from './module/auth/LogoutComponent.jsx'
 import PageNotFound from './module/shared/PageNotFound.jsx'
 
 import store from './store.js'
@@ -19,7 +20,7 @@ const rootRoute = (
       <IndexRoute component={CreatePlan} />
       <Route path='users/:userID/groups' component={Groups} />
       <Route path='users/:userID/plans' component={ViewPlans} />
-      <Route path='hello' component={Groups} />
+      <Route path='auth/logout' component={LogoutComponent} />
       <Route path='*' handler={PageNotFound} />
     </Route>
 

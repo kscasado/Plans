@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
-import { browserHistory } from 'react-router'
 import { addGroup, getGroups } from '../../actions/userAction'
 import { getGroupsfromUser } from '../../actions/groupAction'
 import AddGroupForm from './addGroupForm.jsx'
@@ -42,6 +41,23 @@ export default class Groups extends React.Component {
           <div key={thisGroup._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
             <div className='mdl-card_title mdl-card--expand'>
               {thisGroup.groupname}
+            </div>
+
+            <div className='mdl-card_supporting-text'>
+              Members:
+              <ul className="mdl-list">
+                {thisGroup.members.map((member) => {
+                  return <li className="mdl-list__item" key={member._id}>
+                      <strong>{member.facebook.name}</strong></li>
+                })}
+              </ul>
+              Plans:
+              <ul className="mdl-list">
+                {thisGroup.plans.map((planOption) => {
+                    return <li className="mdl-list__item" key={planOption._id}>
+                      <strong>{planOption.title}</strong></li>
+                })}
+              </ul>
             </div>
 
           </div>

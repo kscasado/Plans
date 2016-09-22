@@ -12,7 +12,6 @@ import $ from 'jquery'
 })
 export default class Nav extends React.Component {
   render () {
-    const content = this.props.children
     var userComponent
     const { user } = this.props
     if(cookie.load('token') && !user.isFetched){
@@ -29,8 +28,7 @@ export default class Nav extends React.Component {
         <strong> | </strong>
         <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge={`${user.groups.length}`}><strong>Groups</strong></Link>
         <br></br>
-      <button onClick={this._logout.bind(this)} className='mdl-button mdl-js-button mdl-button--raise
-        mdl-button--colored'>LogOut</button>
+      <Link to={`/auth/logout`}>LogOut</Link>
       </div>
     } else {
       userComponent = <a href='/auth/facebook'>Facebook Login</a>
@@ -40,18 +38,13 @@ export default class Nav extends React.Component {
       <div className='mdl-navigation mdl-typography--text-right'>
         {userComponent}
       </div>
-      {content}
+
     </div>
     )
   }
-  _logout () {
-    cookie.remove('token')
-    this.props.dispatch({type:'USER_LOGOUT', payload:true})
-  }
+
   getUserData (_id) {
     this.props.dispatch(getUser(_id))
-
-
   }
 
   componentWillMount () {

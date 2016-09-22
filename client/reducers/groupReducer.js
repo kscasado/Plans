@@ -5,13 +5,13 @@ export default function reducer(state = {
   switch (action.type) {
     case 'GET_GROUPS_WITH_USER': {
       var newList = []
-      //iterate through arraylist and add to state
-      for(var group of action.payload) {
+      //  iterate through arraylist and add to state
+      for (var group of action.payload) {
         newList.push({
           _id: group._id,
           groupname: group.groupname,
           members: group.members,
-          plans: group.plans
+          plans: group.planOptions
         })
       }
       return { ...state, groups: newList, isFetched: true }
