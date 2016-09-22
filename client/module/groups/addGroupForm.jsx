@@ -1,6 +1,6 @@
 import React from 'react'
 import {Field, reduxForm } from 'redux-form'
-
+//  form using redux-form to handle adding a group
 const AddGroupForm = (props) => {
   const {handleSubmit} = props
   return (
@@ -11,12 +11,10 @@ const AddGroupForm = (props) => {
               <i className="material-icons">add</i>
           </button>
         </div>
-
-
-    </form>
+      </form>
   )
 }
 
 export default reduxForm({
-  form: 'AddGroupForm',
+  form: 'AddGroupForm'
 })(AddGroupForm)

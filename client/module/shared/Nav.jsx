@@ -14,11 +14,10 @@ export default class Nav extends React.Component {
   render () {
     var userComponent
     const { user } = this.props
-    if(cookie.load('token') && !user.isFetched){
+    if (cookie.load('token') && !user.isFetched) {
       this.getUserData(jwtDecode(cookie.load('token'))._id)
     }
     if (user.isFetched) {
-
       var planLink = 'users/'+user._id+'/plans'
       var groupLink='users/'+user._id+'/groups'
       userComponent= <div>

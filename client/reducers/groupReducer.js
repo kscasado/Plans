@@ -1,4 +1,4 @@
-export default function reducer(state = {
+export default function reducer( state = {
   groups: [],
   isFetched: false,
   error: null}, action) {

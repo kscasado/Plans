@@ -10,16 +10,19 @@ import  { pushPath } from 'redux-simple-router'
     plans: store.plans
   }
 })
+
 export default class LogoutComponenet extends Component {
-  componentWillMount() {
-    const { user, group, plans, dispatch} = this.props
+  componentWillMount () {
+    //  dispatch all of the logouts so store is cleared
+    const{ dispatch } = this.props
     cookie.remove('token')
-    dispatch({type:'USER_LOGOUT', payload:true})
-    dispatch({type:'GROUP_LOGOUT', payload: true})
-    dispatch({type:'PLAN_LOGOUT', payload: true})
+    dispatch({type: 'USER_LOGOUT', payload: true})
+    dispatch({type: 'GROUP_LOGOUT', payload: true})
+    dispatch({type: 'PLAN_LOGOUT', payload: true})
 
   }
-  componentDidMount(){
+  // push the path back to the home
+  componentDidMount () {
     browserHistory.push('/')
   }
   render () {

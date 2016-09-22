@@ -1,7 +1,7 @@
 import React from 'react'
 
 const PageNotFound = React.createClass({
-  render() {
+  render () {
 
     return (
       <div className='well'>

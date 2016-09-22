@@ -16,15 +16,15 @@ export function getBusinessesFromYelp (userLocation, searchTerm, isLatLong){
               })
   }
 }
-
-export function getUsersPlans (userID){
+//  get the plans that the user has from the db
+export function getUsersPlans (userID) {
   return function (dispatch) {
     axios.get('/api/plans/' + userID)
       .then(response => {
-        dispatch({type: "PLANS_FETCHED", payload:response.data })
+        dispatch({ type: "PLANS_FETCHED", payload: response.data })
       })
       .catch(error => {
-        dispatch({type:"PLANS_FETCHED_ERROR", payload:error})
+        dispatch({ type: "PLANS_FETCHED_ERROR", payload: error })
       })
   }
 }

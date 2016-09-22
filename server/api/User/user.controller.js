@@ -3,8 +3,8 @@ import Group from '../../models/groups.js'
 import Plans from '../../models/plans.js'
 import PlanOption from '../../models/PlanOption.js'
 const controller = {}
-//This is used to pass on information about the
-//user to the request
+//  This is used to pass on information about the
+//  user to the request
 controller.userParam = (req, res, next, id) => {
   var query = User.findOne({'_id': id})
   query.exec((err, user) => {
@@ -42,10 +42,11 @@ controller.getUser = (req, res) => {
     }
   })
 }
-//get all the information about the user
+//  get all the information about the user
 controller.me = (req, res) => {
   res.json(req.user)
 }
+//  get the groups given the userid
 controller.getGroups = (req, res) => {
 
   User.findOne({'_id': req.user._id})
@@ -60,6 +61,7 @@ controller.getGroups = (req, res) => {
     }
   })
 }
+//get the plans given the user id
 controller.getPlans = (req, res) => {
   User.findOne({'_id': req.params.id}, 'planOptions', (err, user) => {
     if (err) {

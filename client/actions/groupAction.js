@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+//gets the groups that the user is apart of
 export function getGroupsfromUser (userID) {
   return function (dispatch) {
     axios.get('/api/groups/' + userID)
