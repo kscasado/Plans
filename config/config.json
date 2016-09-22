@@ -1,0 +1,29 @@
+{
+  "server" : {
+    "protocol" : "http",
+    "host" : "localhost:3000"
+
+  },
+  "provider1" : {
+    "key" : "xztEaq0Ky66KY0jNxWAFTw",
+    "secret" : "I3Fjjjy9n-p6QZpolbvzYD4dZEE",
+    "scope" : [],
+    "callback" : "/api/handleYelpOauth"
+  },
+  "yelp" : {
+    "v3ID": "aUUuvLqsGyWgxJIQezifWQ",
+    "v3Secret": "flsoAihdRNEAwggwM43j6bjanjz4LGDgD4GRXt3ml6kMdEccT3GDvxI3MjM9AQT0",
+    "key" : "xztEaq0Ky66KY0jNxWAFTw",
+    "secret" : "I3Fjjjy9n-p6QZpolbvzYD4dZEE",
+    "token" :"AqgBsVExvFKa5hfpo0w6B6-zevOE9UlN",
+    "tokenSecret" : "ajTxz60sdrovtnwRNVk7T1uAWTo"
+  },
+  "facebook" : {
+      "clientID"      : "1088877801149856",
+      "clientSecret"  : "1d80af11b47cfe8d1a687e533c9a2ba9",
+      "callbackURL"   : "http://localhost:3000/auth/facebook/callback"
+  },
+  "secret": "SECRET",
+  "db" : {
+    "url" : "mongodb://heroku_4gvjmj7r:q30u0j8c4nj2tknpe3eacu72rv@ds035796.mlab.com:35796/heroku_4gvjmj7r"
+}
