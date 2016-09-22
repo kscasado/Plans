@@ -28,7 +28,7 @@ Plans is a social application where friends can make groups and  make plans. It 
 ## Requirements
   * __Node__ 6.2.0
     * Install instructions [here] (https://nodejs.org/en/)
-  * __NPM__ 3.8.9
+  * __NPM__ 3.10.6
 
 ## Installing and Running
   1. Run 'npm install' on main project directory
