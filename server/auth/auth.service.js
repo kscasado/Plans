@@ -40,7 +40,6 @@ export const isAuthenticated = () => compose()
 export const signToken = id => jwt.sign({_id: id}, SECRET, {expiresIn: EXPIRE})
 // Sets toekn to the res.cookie
 export const setTokenCookie = (req, res) => {
-  console.log('signed token:' + req.user._id)
   if (!req.user) {
     return res.status(404).send('It looks like you aren\'t logged in, please try again.')
   }
