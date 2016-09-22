@@ -35,7 +35,7 @@ export default function reducer (state = {
       return {...state, error: action.payload}
     }
     case 'CHANGE_GROUP_FOR_PLAN': {
-      return { ...state, groupForPlan: action.payload }
+      return { ...state, plansFetched: false, groupForPlan: action.payload }
     }
     case 'PLAN_LOGOUT': {
       return { plans: [],

@@ -29,8 +29,10 @@ export default (User, config) => {
       newUser.facebook.email = profile.emails[0].value
       newUser.save((err) => {
         if (err) {
+          console.log('Could not save new user')
           throw err
         }
+        console.log('saved new user')
         return done(null, user)
       })
     })

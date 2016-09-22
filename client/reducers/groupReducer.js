@@ -16,6 +16,9 @@ export default function reducer( state = {
       }
       return { ...state, groups: newList, isFetched: true }
     }
+    case 'GROUP_ADDED': {
+      return { ...state, isFetched: false }
+    }
     case 'GET_GROUPS_WITH_USER_ERROR': {
       return {...state, error: action.payload}
     }

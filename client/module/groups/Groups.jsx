@@ -26,9 +26,11 @@ export default class Groups extends React.Component {
   }
   _addGroup () {
     const { form } = this.props
+
     this.props.dispatch(addGroup(this.props.user._id,
                                   this.props.user._id,
                                   form.AddGroupForm.values.NewGroupName))
+    this.props.dispatch({type:'GROUP_ADDED',payload: true})
   }
   //  fetches groups
   _generateGroupElement (group) {

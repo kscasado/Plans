@@ -7,11 +7,11 @@ import bodyParser from 'body-parser'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackconfig from '../webpack.config.js'
-
+import compression from 'compression'
 import authRouter from './auth'
 import apiRouter from './api'
-const PORT = Number(process.env.PORT || 3000)
-var isDeveloping = (PORT === 3000)
+const isDeveloping = process.env.NODE_ENV !== 'production'
+  console.log(isDeveloping)
 
   const compiler = webpack(webpackconfig)
 
@@ -27,23 +27,29 @@ var isDeveloping = (PORT === 3000)
       modules: false
     }
     })
+    const app = express()
+    app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({extended: false}))
+    app.use('/api', apiRouter)
+    app.use('/auth', authRouter)
 if(isDeveloping){
+    //db.connect(config.db.url)
     db.connect('mongodb://localhost/plans')
+    app.use(middleware)
+    app.use(webpackHotMiddleware(compiler))
+    app.get('*', function response (req, res) {
+      res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')))
+      res.end()
+    })
  }
 else{
   db.connect(config.db.url)
-}
-  const app = express()
-  app.use(bodyParser.json())
-  app.use(bodyParser.urlencoded({extended: false}))
-  app.use('/api', apiRouter)
-  app.use('/auth', authRouter)
-  app.use(middleware)
-  app.use(webpackHotMiddleware(compiler))
+  app.use(compression())
+  app.use(express.static(path.join(__dirname, '../dist')))
   app.get('*', function response (req, res) {
-  res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../dist/index.html')))
-  res.end()
-})
+        res.sendFile(path.join(__dirname, '../dist/index.html'))
+      })
+}
 
-
-app.listen(PORT, () => console.log(`Running on port ${PORT}`))
+const port = 3000
+app.listen(port, () => console.log(`Running on port ${port}`))
