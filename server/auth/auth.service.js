@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import expressJwt from 'express-jwt'
 import config from '../../config/config.json'
-import User from '../models/Users.js'
+import User from '../models/users.js'
 import compose from 'composable-middleware'
 const EXPIRE = 60 * 60 * 5 // 5 HOURS
 const SECRET = config.secret
