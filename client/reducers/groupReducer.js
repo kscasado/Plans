@@ -19,6 +19,11 @@ export default function reducer(state = {
     case 'GET_GROUPS_WITH_USER_ERROR': {
       return {...state, error: action.payload}
     }
+    case 'GROUP_LOGOUT': {
+      return { groups: [],
+      isFetched: false,
+      error: null }
+    }
   }
   return state
 }

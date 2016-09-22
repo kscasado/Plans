@@ -1,7 +1,8 @@
 import { Component } from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import { browserHistory } from 'react-router'
 import cookie from 'react-cookie'
+import  { pushPath } from 'redux-simple-router'
 @connect ((store) => {
   return {
     user: store.user,
@@ -16,10 +17,14 @@ export default class LogoutComponenet extends Component {
     dispatch({type:'USER_LOGOUT', payload:true})
     dispatch({type:'GROUP_LOGOUT', payload: true})
     dispatch({type:'PLAN_LOGOUT', payload: true})
-    this.props.routing.replace('/')
+
   }
-  render() {
+  componentDidMount(){
+    browserHistory.push('/')
+  }
+  render () {
     return null
   }
+
 
 }
