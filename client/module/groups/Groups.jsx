@@ -1,8 +1,10 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
+import Group from './Group.jsx'
 import { addGroup, getGroups } from '../../actions/userAction'
 import { getGroupsfromUser } from '../../actions/groupAction'
+import Modal from 'react-modal'
 import AddGroupForm from './addGroupForm.jsx'
 @connect((store) => {
   return{
@@ -39,30 +41,8 @@ export default class Groups extends React.Component {
     } else {
       let groupList = []
       for (var thisGroup of group.groups) {
-        const groupElement =
-          <div key={thisGroup._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
-            <div className='mdl-card_title mdl-card--expand'>
-              {thisGroup.groupname}
-            </div>
+        const groupElement = <Group group= {thisGroup} ></Group>
 
-            <div className='mdl-card_supporting-text'>
-              Members:
-              <ul className="mdl-list">
-                {thisGroup.members.map((member) => {
-                  return <li className="mdl-list__item" key={member._id}>
-                      <strong>{member.facebook.name}</strong></li>
-                })}
-              </ul>
-              Plans:
-              <ul className="mdl-list">
-                {thisGroup.plans.map((planOption) => {
-                    return <li className="mdl-list__item" key={planOption._id}>
-                      <strong>{planOption.title}</strong></li>
-                })}
-              </ul>
-            </div>
-
-          </div>
 
         groupList.push(groupElement)
       }
@@ -81,5 +61,8 @@ export default class Groups extends React.Component {
         {groupElement}
       </div>
     )
+  }
+  _addMember (group) {
+
   }
 }
