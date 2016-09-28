@@ -1,4 +1,4 @@
-import User from '../../models/Users.js'
+import User from '../../models/users.js'
 import Group from '../../models/groups.js'
 import Plans from '../../models/plans.js'
 import PlanOption from '../../models/PlanOption.js'

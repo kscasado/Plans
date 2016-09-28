@@ -41,7 +41,7 @@ export default class Groups extends React.Component {
     } else {
       let groupList = []
       for (var thisGroup of group.groups) {
-        const groupElement = <Group group= {thisGroup} ></Group>
+        const groupElement = <Group group= {thisGroup} key={thisGroup._id}></Group>
 
 
         groupList.push(groupElement)
@@ -53,11 +53,15 @@ export default class Groups extends React.Component {
     const { user, group } = this.props
     this._getGroups()
     var groupElement = this._generateGroupElement(group)
-
-    return (
+    var error = <br></br>
+    if(group.error){
+      error=<div className='alert alert-danger'><strong>{group.error}</strong></div>
+    }
+  return (
       <div>
         <h2>Groups</h2>
         <AddGroupForm onSubmit={this._addGroup.bind(this)}/>
+        {error}
         {groupElement}
       </div>
     )

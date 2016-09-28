@@ -1,7 +1,9 @@
-export default function reducer( state = {
+var initialState = {
   groups: [],
   isFetched: false,
-  error: null}, action) {
+  error: null
+}
+export default function reducer(state = initialState, action) {
   switch (action.type) {
     case 'GET_GROUPS_WITH_USER': {
       var newList = []
@@ -16,8 +18,9 @@ export default function reducer( state = {
       }
       return { ...state, groups: newList, isFetched: true }
     }
+
     case 'GROUP_ADDED': {
-      return { ...state, isFetched: false }
+      return { ...state, isFetched: false, error: null }
     }
     case 'GET_GROUPS_WITH_USER_ERROR': {
       return {...state, error: action.payload}
@@ -26,6 +29,12 @@ export default function reducer( state = {
       return { groups: [],
       isFetched: false,
       error: null }
+    }
+    case 'ADD_MEMBER': {
+      return { ...state, isFetched: false, error: null }
+    }
+    case 'ADD_MEMBER_FAILED': {
+      return { ...state, error: action.payload, isFetched: false }
     }
   }
   return state

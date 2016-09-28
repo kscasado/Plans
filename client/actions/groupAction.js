@@ -11,3 +11,16 @@ export function getGroupsfromUser (userID) {
       })
   }
 }
+export function addUserToGroup (userEmail, groupID) {
+  return (dispatch) => {
+    axios.post('/api/groups/' + groupID + '/addMember', {
+      UserEmail: userEmail
+    })
+    .then(response => {
+      dispatch({type: 'ADD_MEMBER', payload: response.data})
+    })
+    .catch(error => {
+      dispatch({type: 'ADD_MEMBER_FAILED', payload: 'Member not found'})
+    })
+  }
+}
