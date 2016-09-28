@@ -6,7 +6,7 @@
 */
 import express from 'express'
 import yelpRouter from './yelp/index.js'
-import userRouter from './user/index.js'
+import userRouter from './User/index.js'
 import groupRouter from './groups/index.js'
 import planRouter from './plans/index.js'
 const router = express.Router()

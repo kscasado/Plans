@@ -32,9 +32,8 @@ const isDeveloping = process.env.NODE_ENV !== 'production'
     app.use(bodyParser.urlencoded({extended: false}))
     app.use('/api', apiRouter)
     app.use('/auth', authRouter)
-if(true){
-    db.connect(config.db.url)
-    //db.connect('mongodb://localhost/plans')
+if(process.env.PORT){
+    db.connect('mongodb://localhost/plans')
     app.use(middleware)
     app.use(webpackHotMiddleware(compiler))
     app.get('*', function response (req, res) {
@@ -51,5 +50,5 @@ else{
       })
 }
 
-const port = 3000
-app.listen(port, () => console.log(`Running on port ${port}`))
+const PORT = Number(process.env.PORT || 3000)
+app.listen(PORT, () => console.log(`Running on port ${PORT}`))
