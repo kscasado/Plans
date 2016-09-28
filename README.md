@@ -1,5 +1,6 @@
 #Plans
 
+For a working demo visit [Demo] (https://lets-make-plans.herokuapp.com/)
 # Description #
 Plans is a social application where friends can make groups and  make plans. It uses the Facebook and Yelp v2 API.  
 ###Current User Stories Implemented
@@ -36,3 +37,6 @@ Plans is a social application where friends can make groups and  make plans. It 
   1. Run 'npm install' on main project directory
   2. Include config folder and config.json file with api keys and db url
   3. Run 'npm run start' web page will be on localhost:3000
+
+## Code Styling
+  Code is linted using eslint in order to maintain readable standards throughout
