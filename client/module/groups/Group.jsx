@@ -1,25 +1,26 @@
 
 import React from 'react'
 import AddMemberForm from './addMemberForm.jsx'
-import DatePicker from 'react-datepicker'
-import DayPicker, { DateUtils } from "react-day-picker";
-import moment from 'moment'
-//import { Dialog, DialogActions } from 'react-mdl'
 import { connect } from 'react-redux'
 import { addUserToGroup } from '../../actions/groupAction.js'
 import  { Dialog }  from 'react-toolbox/lib/dialog'
-//import 'react-day-picker/lib/style.css'
+import { TimePicker } from 'react-toolbox/lib/time_picker'
+import { DatePicker } from 'react-toolbox/lib/date_picker'
 @connect((store) => {
   return{
     form: store.form
   }
 })
 export default class Group extends React.Component {
-
+  actions = [
+   { label: "Cancel", onClick: this._handleToggleView.bind(this) },
+   { label: "Save", onClick: this._handleToggleView.bind(this) }
+  ]
   componentWillMount () {
     this.setState({
-      modalView: false,
-      eventDate: moment()
+      dialogView: false,
+      eventDate: new Date(),
+      eventTime: new Date()
       })
   }
   componentWillUnmount () {
@@ -29,18 +30,23 @@ export default class Group extends React.Component {
 
   render () {
     const { group } = this.props
+    console.log(this.state.eventDate)
     return (
 
       <div key={group._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
-        <Dialog active={this.state.modalView}>
+        <Dialog active={this.state.dialogView}
+                actions={this.actions}>
           <h2>Create Event</h2>
           <div>
-
-
-
-
-
-        </div>
+            <DatePicker label='Event Date' sundayFirstDayOfWeek
+              onChange={this._handleDateChange.bind(this)}
+              value={this.state.eventDate} />
+              <TimePicker
+                label='Event Time'
+                onChange={this._handleChangeTime.bind(this)}
+                value={this.state.eventTime}
+              />
+          </div>
 
         </Dialog>
         <div className='mdl-card_title mdl-card--expand'>
@@ -75,11 +81,19 @@ export default class Group extends React.Component {
 
     )
   }
+  _handleToggleView () {
+    this.setState({dialogView: false})
+  }
+  _handleChangeTime (time) {
+
+    this.state.eventTime = time
+  }
   _handleDateChange(date){
+
     this.state.eventDate = date
   }
   _addEvent(groupID){
-    this.setState({modalView: true})
+    this.setState({dialogView: true})
     console.log(groupID)
   }
   _closeDialog() {
