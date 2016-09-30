@@ -10,7 +10,7 @@ import Groups from './module/groups/Groups.jsx'
 import ViewPlans from './module/plan/ViewPlans.jsx'
 import LogoutComponent from './module/auth/LogoutComponent.jsx'
 import PageNotFound from './module/shared/PageNotFound.jsx'
-
+import 'react-toolbox/lib/commons.scss'
 import store from './store.js'
 const history = syncHistoryWithStore(browserHistory, store)
 const rootRoute = (

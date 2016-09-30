@@ -2,10 +2,13 @@
 import React from 'react'
 import AddMemberForm from './addMemberForm.jsx'
 import DatePicker from 'react-datepicker'
+import DayPicker, { DateUtils } from "react-day-picker";
 import moment from 'moment'
-import { Dialog, DialogActions } from 'react-mdl'
+//import { Dialog, DialogActions } from 'react-mdl'
 import { connect } from 'react-redux'
 import { addUserToGroup } from '../../actions/groupAction.js'
+import  { Dialog }  from 'react-toolbox/lib/dialog'
+//import 'react-day-picker/lib/style.css'
 @connect((store) => {
   return{
     form: store.form
@@ -29,12 +32,16 @@ export default class Group extends React.Component {
     return (
 
       <div key={group._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
-        <Dialog open={this.state.modalView}>
+        <Dialog active={this.state.modalView}>
           <h2>Create Event</h2>
+          <div>
 
-          <DialogActions>
 
-          </DialogActions>
+
+
+
+        </div>
+
         </Dialog>
         <div className='mdl-card_title mdl-card--expand'>
           Group Name:<strong> {group.groupname} </strong>
@@ -48,6 +55,7 @@ export default class Group extends React.Component {
                   <strong>{member.facebook.name}</strong></li>
             })}
           </ul>
+
           <AddMemberForm onSubmit={this._addMember.bind(this)} key={group._id}></AddMemberForm>
 
           Plans:
@@ -66,6 +74,9 @@ export default class Group extends React.Component {
       </div>
 
     )
+  }
+  _handleDateChange(date){
+    this.state.eventDate = date
   }
   _addEvent(groupID){
     this.setState({modalView: true})
