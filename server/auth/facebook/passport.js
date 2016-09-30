@@ -27,7 +27,7 @@ export default (User, config) => {
       newUser.facebook.imageUrl = profile.photos[0].value
       newUser.facebook.name = profile.displayName
       newUser.facebook.email = profile.emails[0].value
-      newUser.save((err) => {
+      newUser.save((err, user) => {
         if (err) {
           console.log('Could not save new user')
           throw err
@@ -37,5 +37,6 @@ export default (User, config) => {
       })
     })
   }
+
   passport.use(new FacebookStrategy(settings, handler))
 }

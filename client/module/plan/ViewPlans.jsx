@@ -17,7 +17,9 @@ export default class ViewPlans extends React.Component {
     return (
       <div>
         <h1>View Plans</h1>
-        {planListElement}
+        <div className="mdl-grid">
+          {planListElement}
+        </div>
       </div>
     )
   }
@@ -28,7 +30,7 @@ export default class ViewPlans extends React.Component {
 
 
   }
-  _generatePlanList(){
+  _generatePlanList () {
     const { plans } = this.props
     if(plans.plansFetched){
       let planList= []

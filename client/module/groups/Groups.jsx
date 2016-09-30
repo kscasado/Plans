@@ -62,7 +62,9 @@ export default class Groups extends React.Component {
         <h2>Groups</h2>
         <AddGroupForm onSubmit={this._addGroup.bind(this)}/>
         {error}
-        {groupElement}
+        <div className="mdl-grid">
+          {groupElement}
+        </div>
       </div>
     )
   }

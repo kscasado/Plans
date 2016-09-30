@@ -4,6 +4,7 @@ import path from 'path'
 import config from '../config/config.json'
 import webpack from 'webpack'
 import bodyParser from 'body-parser'
+import passport from 'passport'
 import webpackMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackconfig from '../webpack.config.js'
@@ -11,7 +12,6 @@ import compression from 'compression'
 import authRouter from './auth'
 import apiRouter from './api'
 const isDeveloping = process.env.NODE_ENV !== 'production'
-  console.log(isDeveloping)
 
   const compiler = webpack(webpackconfig)
 
@@ -32,7 +32,8 @@ const isDeveloping = process.env.NODE_ENV !== 'production'
     app.use(bodyParser.urlencoded({extended: false}))
     app.use('/api', apiRouter)
     app.use('/auth', authRouter)
-if(process.env.PORT){
+if(isDeveloping){
+    console.log('Development Mode')
     db.connect('mongodb://localhost/plans')
     app.use(middleware)
     app.use(webpackHotMiddleware(compiler))

@@ -1,6 +1,9 @@
 
 import React from 'react'
 import AddMemberForm from './addMemberForm.jsx'
+import DatePicker from 'react-datepicker'
+import moment from 'moment'
+import { Dialog, DialogActions } from 'react-mdl'
 import { connect } from 'react-redux'
 import { addUserToGroup } from '../../actions/groupAction.js'
 @connect((store) => {
@@ -11,7 +14,10 @@ import { addUserToGroup } from '../../actions/groupAction.js'
 export default class Group extends React.Component {
 
   componentWillMount () {
-
+    this.setState({
+      modalView: false,
+      eventDate: moment()
+      })
   }
   componentWillUnmount () {
 
@@ -21,9 +27,17 @@ export default class Group extends React.Component {
   render () {
     const { group } = this.props
     return (
+
       <div key={group._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
+        <Dialog open={this.state.modalView}>
+          <h2>Create Event</h2>
+
+          <DialogActions>
+
+          </DialogActions>
+        </Dialog>
         <div className='mdl-card_title mdl-card--expand'>
-          Group Name: {group.groupname}
+          Group Name:<strong> {group.groupname} </strong>
         </div>
 
         <div className='mdl-card_supporting-text'>
@@ -43,11 +57,22 @@ export default class Group extends React.Component {
                   <strong>{planOption.title}</strong></li>
             })}
           </ul>
-        </div>
+          <div className='mdl-card_menu'>
+            <button onClick={this._addEvent.bind(this, group._id)}className="mdl-button mdl-js-button mdl-button--raised">Create Event</button>
+          </div>
+
+      </div>
 
       </div>
 
     )
+  }
+  _addEvent(groupID){
+    this.setState({modalView: true})
+    console.log(groupID)
+  }
+  _closeDialog() {
+    this.setState({modalView: false})
   }
   _addMember () {
     const {group, form} = this.props

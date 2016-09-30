@@ -9,7 +9,7 @@ class Layout extends React.Component {
       <div className = 'mdl-layout mdl-js-layout'>
 
         <Link to={'/'}><h2 className='mdl-typography--text-center
-          mdl-layout__header'>Lets Make Plans</h2></Link>
+          mdl-layout__title'>Lets Make Plans</h2></Link>
 
         <Nav />
         <div className = 'mdl-layout-spacer'>
