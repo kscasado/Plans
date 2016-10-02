@@ -14,6 +14,7 @@ export default class Nav extends React.Component {
   render () {
     var userComponent
     const { user } = this.props
+    console.log(user)
     if (cookie.load('token') && !user.isFetched) {
       this.getUserData(jwtDecode(cookie.load('token'))._id)
     }

@@ -36,6 +36,12 @@ export default function reducer(state = initialState, action) {
     case 'ADD_MEMBER_FAILED': {
       return { ...state, error: action.payload, isFetched: false }
     }
+    case 'ADD_PLAN': {
+      return { ...state, isFetched: false, error: null }
+    }
+    case 'ADD_PLAN_FAILED': {
+      return { ...state, error:action.payload }
+    }
   }
   return state
 }

@@ -7,7 +7,7 @@ module.exports = {
   context: __dirname,
   devtool: 'inline-source-map',
   entry: [
-    'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client?reload=true',
     path.join(__dirname, 'client/Router.jsx')
   ],
   output: {

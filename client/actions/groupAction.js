@@ -24,3 +24,17 @@ export function addUserToGroup (userEmail, groupID) {
     })
   }
 }
+export function addPlanToGroup (groupID, date, time) {
+  return (dispatch) => {
+    axios.post('/api/groups/' + groupID + '/addPlan', {
+      planDate: date,
+      planTime: time
+    })
+    .then(response => {
+      dispatch({type: 'PLAN_ADDED', payload: response.data})
+    })
+    .catch(error => {
+      dispatch({type: 'PLAN_ADDED_FAILED', payload: 'Unable to add Plan'})
+    })
+  }
+}

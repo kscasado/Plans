@@ -2,25 +2,28 @@
 import React from 'react'
 import AddMemberForm from './addMemberForm.jsx'
 import { connect } from 'react-redux'
-import { addUserToGroup } from '../../actions/groupAction.js'
+import { addUserToGroup, addPlanToGroup } from '../../actions/groupAction.js'
 import  { Dialog }  from 'react-toolbox/lib/dialog'
 import { TimePicker } from 'react-toolbox/lib/time_picker'
 import { DatePicker } from 'react-toolbox/lib/date_picker'
+import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card'
 @connect((store) => {
   return{
     form: store.form
   }
 })
 export default class Group extends React.Component {
+  //define a actions field
   actions = [
-   { label: "Cancel", onClick: this._handleToggleView.bind(this) },
-   { label: "Save", onClick: this._handleToggleView.bind(this) }
+   { label: "Cancel", onClick: this._handleCancel.bind(this) },
+   { label: "Save", onClick: this._handleSave.bind(this) }
   ]
+  //since this is a "dumb" component we will use setState instead of store
   componentWillMount () {
     this.setState({
       dialogView: false,
-      eventDate: new Date(),
-      eventTime: new Date()
+      planDate: new Date(),
+      planTime: new Date()
       })
   }
   componentWillUnmount () {
@@ -30,21 +33,20 @@ export default class Group extends React.Component {
 
   render () {
     const { group } = this.props
-    console.log(this.state.eventDate)
     return (
 
       <div key={group._id} className='mdl-card mdl-cell mdl-shadow--4dp'>
         <Dialog active={this.state.dialogView}
                 actions={this.actions}>
-          <h2>Create Event</h2>
+          <h2>Create Plan</h2>
           <div>
-            <DatePicker label='Event Date' sundayFirstDayOfWeek
+            <DatePicker label='Plan Date' sundayFirstDayOfWeek
               onChange={this._handleDateChange.bind(this)}
-              value={this.state.eventDate} />
+              value={this.state.planDate} />
               <TimePicker
-                label='Event Time'
+                label='Plan Time'
                 onChange={this._handleChangeTime.bind(this)}
-                value={this.state.eventTime}
+                value={this.state.planTime}
               />
           </div>
 
@@ -71,9 +73,9 @@ export default class Group extends React.Component {
                   <strong>{planOption.title}</strong></li>
             })}
           </ul>
-          <div className='mdl-card_menu'>
-            <button onClick={this._addEvent.bind(this, group._id)}className="mdl-button mdl-js-button mdl-button--raised">Create Event</button>
-          </div>
+          <CardActions>
+            <button onClick={this._addPlan.bind(this, group._id)} className="mdl-button mdl-js-button mdl-button--raised">Create Plan</button>
+          </CardActions>
 
       </div>
 
@@ -81,20 +83,34 @@ export default class Group extends React.Component {
 
     )
   }
+  _handleCancel() {
+    //toggleview
+    this.setState({dialogView: false})
+  }
+  _handleSave() {
+    //check to make sure no errors exist
+    //check for if the date is in the past or if one already
+    //occupies it
+    this._addPlan()
+  }
   _handleToggleView () {
     this.setState({dialogView: false})
   }
   _handleChangeTime (time) {
 
-    this.state.eventTime = time
+    this.state.planTime = time
   }
   _handleDateChange(date){
 
-    this.state.eventDate = date
+    this.state.planDate = date
   }
-  _addEvent(groupID){
+  _addPlan(){
+    const { group } = this.props
     this.setState({dialogView: true})
-    console.log(groupID)
+    this.props.dispatch(addPlanToGroup(group._id,this.state.planDate,
+                                        this.state.planTime))
+
+
   }
   _closeDialog() {
     this.setState({modalView: false})

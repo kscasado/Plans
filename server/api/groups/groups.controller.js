@@ -1,6 +1,7 @@
 
 import Group from '../../models/groups.js'
 import User from '../../models/users.js'
+import Plan from '../../models/plans.js'
 const controller = {}
 //Used to pass on information about the group
 //to the reques
@@ -51,6 +52,24 @@ controller.addMemberToGroup = (req, res) => {
         return res.json(group)
       })
     }
+  })
+}
+controller.addPlanToGroup = (req, res) => {
+  var newPlan = new Plan()
+  newPlan.time = req.body.PlanTime
+  newPlan.date = req.body.PlanDate
+  newPlan.group = req.group
+  newPlan.save((err, plan) => {
+    if(err){
+      res.send(err)
+    }
+    req.group.plans.push(Plan)
+    req.group.save((err, group) => {
+      if(err){
+        res.send(err)
+      }
+      res.json(group)
+    })
   })
 }
 

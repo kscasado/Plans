@@ -2,10 +2,17 @@ import mongoose from 'mongoose'
 import group from './groups.js'
 var PlanSchema = new mongoose.Schema({
   date: Date,
+  time: Date,
   group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-  options: [String],
-  votes: [Number],
+  options: [{type: mongoose.Schema.Types.ObjectId, ref:'PlanOption'}],
   winner:String
 })
+/*
+PlanSchema.methods.findWinner = () => {
+  //find which option has the most votes
 
-mongoose.model('Plan', PlanSchema)
+
+}
+*/
+
+module.exports = mongoose.model('Plan', PlanSchema)

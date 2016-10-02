@@ -1,13 +1,13 @@
 import mongoose from 'mongoose'
-
+import group from './groups.js'
 var PlanOptionSchema = new mongoose.Schema({
-  title: String,
   address: String,
   city: String,
   url: String,
   imageURL: String,
-  group: {type: mongoose.Schema.Types.ObjectId, ref: 'Groups'}
+  group:{type: mongoose.Schema.Types.ObjectId, ref: 'group'},
+  votes: {type: Number, default: 0}
 
 })
 
-module.exports = mongoose.model('PlanOption', PlanOptionSchema)
+mongoose.model('PlanOption', PlanOptionSchema)
