@@ -27,7 +27,7 @@ controller.groupParam = (req, res, next, id) => {
       return next(err)
     }
     if (!group) {
-      return next(new Error('can\'t find user'))
+      return next(new Error('can\'t find group'))
     }
     req.group = group
     return next()

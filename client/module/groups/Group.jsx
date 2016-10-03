@@ -68,9 +68,9 @@ export default class Group extends React.Component {
 
           Plans:
           <ul className="mdl-list">
-            {group.plans.map((planOption) => {
-                return <li className="mdl-list__item" key={planOption._id}>
-                  <strong>{planOption.title}</strong></li>
+            {group.plans.map((plan) => {
+                return <li className="mdl-list__item" key={plan._id}>
+                  <strong>{plan.date}</strong></li>
             })}
           </ul>
           <CardActions>
@@ -107,6 +107,7 @@ export default class Group extends React.Component {
   _addPlan(){
     const { group } = this.props
     this.setState({dialogView: true})
+    console.log(group)
     this.props.dispatch(addPlanToGroup(group._id,this.state.planDate,
                                         this.state.planTime))
 

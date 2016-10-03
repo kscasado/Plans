@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import group from './groups.js'
+
 var PlanOptionSchema = new mongoose.Schema({
   address: String,
   city: String,
@@ -10,4 +10,4 @@ var PlanOptionSchema = new mongoose.Schema({
 
 })
 
-mongoose.model('PlanOption', PlanOptionSchema)
+module.exports = mongoose.model('PlanOption', PlanOptionSchema)

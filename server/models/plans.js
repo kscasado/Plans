@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
-import group from './groups.js'
+
 var PlanSchema = new mongoose.Schema({
   date: Date,
   time: Date,
-  group: {type: mongoose.Schema.Types.ObjectId, ref: 'Group'},
-  options: [{type: mongoose.Schema.Types.ObjectId, ref:'PlanOption'}],
+  group: {type: mongoose.Schema.Types.ObjectId, ref: 'Groups'},
+  options: [{type: mongoose.Schema.Types.ObjectId, ref:'PlanOption', default: 'nooptions'}],
   winner:String
 })
 /*

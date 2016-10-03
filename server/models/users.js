@@ -14,7 +14,7 @@ var UserSchema = mongoose.Schema({
     name: String
   },
   groups: [{type: mongoose.Schema.Types.ObjectId, ref: 'Groups', default:'nogroups'}],
-  plans: [{type: mongoose.Schema.Types.ObjectId, ref: 'PlanOption', default:'noplans'}]
+  plans: [{type: mongoose.Schema.Types.ObjectId, ref: 'Plan', default:'noplans'}]
 })
 
 UserSchema.methods.setPassword = function (password) {

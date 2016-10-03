@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action) {
           _id: group._id,
           groupname: group.groupname,
           members: group.members,
-          plans: group.planOptions
+          plans: group.plans
         })
       }
       return { ...state, groups: newList, isFetched: true }

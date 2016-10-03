@@ -6,14 +6,16 @@ const controller = {}
 //Used to pass on information about the group
 //to the reques
 controller.groupParam = (req, res, next, id) => {
+
   var query = Group.findOne({'_id':id})
   query.exec((err, group) => {
     if(err) {
       return next(err)
     }
     if (!group) {
-      return next(new Error('can\'t find user'))
+      return next(new Error('can\'t find group'))
     }
+
     req.group = group
     return next()
   })
@@ -22,7 +24,7 @@ controller.groupParam = (req, res, next, id) => {
 controller.getGroupsContainingUser = (req, res) => {
   Group.find({'members': req.params.userid})
       .populate('members')
-      .populate('planOptions')
+      .populate('plans')
       .exec((err, groups) => {
         if (err) {
           return res.send(err)
@@ -55,15 +57,20 @@ controller.addMemberToGroup = (req, res) => {
   })
 }
 controller.addPlanToGroup = (req, res) => {
+
   var newPlan = new Plan()
-  newPlan.time = req.body.PlanTime
-  newPlan.date = req.body.PlanDate
-  newPlan.group = req.group
+  console.log(req.body)
+  newPlan.time = req.body.planTime
+  newPlan.date = req.body.planDate
+
+  newPlan.group = req.group._id
+  console.log('newPlan'+ newPlan)
   newPlan.save((err, plan) => {
     if(err){
+      console.log('err: '+ err)
       res.send(err)
     }
-    req.group.plans.push(Plan)
+    req.group.plans.push(plan)
     req.group.save((err, group) => {
       if(err){
         res.send(err)
