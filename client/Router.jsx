@@ -10,6 +10,7 @@ import Groups from './module/groups/Groups.jsx'
 import ViewPlans from './module/plan/ViewPlans.jsx'
 import LogoutComponent from './module/auth/LogoutComponent.jsx'
 import PageNotFound from './module/shared/PageNotFound.jsx'
+import Plan from './module/plan/plan.jsx'
 import 'react-toolbox/lib/commons.scss'
 import store from './store.js'
 const history = syncHistoryWithStore(browserHistory, store)
@@ -21,7 +22,9 @@ const rootRoute = (
       <Route path='users/:userID/groups' component={Groups} />
       <Route path='users/:userID/plans' component={ViewPlans} />
       <Route path='auth/logout' component={LogoutComponent} />
-      <Route path='*' handler={PageNotFound} />
+      <Route path='plans/:planID' component={Plan} />
+    <Route path='*' handler={PageNotFound} />
+
     </Route>
 
   </Router>

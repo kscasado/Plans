@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import SearchForm from './SearchForm.jsx'
-import { addPlanOption } from '../../actions/userAction.js'
+import { addPlanOption } from '../../actions/planAction.js'
 import { getBusinessesFromYelp } from '../../actions/eventAction.js'
 import { getGroupsfromUser } from '../../actions/groupAction.js'
 
@@ -42,7 +42,6 @@ export default class CreatePlan extends React.Component {
 
   */
   _changeGroupForPlan(event) {
-    console.log(event.target.value)
     this.props.dispatch({type:"CHANGE_GROUP_FOR_PLAN", payload:event.target.value})
   }
   /*
@@ -94,11 +93,7 @@ export default class CreatePlan extends React.Component {
             </div>
             <div className='mdl-layout-spacer'></div>
           <div id="AddPlanIcon" className="mdl-card_menu">
-            <select onChange={this._changeGroupForPlan.bind(this)} value={this.props.plans.groupForPlan}>
-              {group.groups.map((group)=> {
-                return <option value={group._id} key={group._id}>{group.groupname}</option>
-              })}
-            </select>
+
             <button onClick={this._addPlan.bind(this, business)} id="AddPlanIcon" className="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
               <i id="AddPlanIcon" className="material-icons">add</i>
             </button>
@@ -120,8 +115,8 @@ export default class CreatePlan extends React.Component {
   */
   _addPlan (business) {
     const { user, plans } = this.props
-    var groupID= ((plans.groupForPlan) ? plans.groupForPlan : user.groups[0])
-    this.props.dispatch(addPlanOption(user._id, groupID, business))
+
+    this.props.dispatch(addPlanOption(user._id, this.props.groupID, business))
   }
   _getGroups () {
     const { user, group } = this.props

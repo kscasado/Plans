@@ -2,6 +2,7 @@
 import Group from '../../models/groups.js'
 import User from '../../models/users.js'
 import Plan from '../../models/plans.js'
+import PlanOption from '../../models/PlanOption.js'
 const controller = {}
 //Used to pass on information about the group
 //to the reques
@@ -20,7 +21,27 @@ controller.groupParam = (req, res, next, id) => {
     return next()
   })
 }
-
+controller.addPlanOption = (req, res, next) => {
+  var business = req.body.business
+  var newPlanOption = new PlanOption()
+  newPlanOption.address = business.location.address
+  newPlanOption.city = business.location.city
+  newPlanOption.imageURL = business.image_url
+  newPlanOption.url = business.url
+  newPlanOption.group = req.group._id
+  newPlanOption.title = business.name
+  newPlanOption.save((err, PlanOption) => {
+    if (err) {
+      return next(new Error('can\'t save Plan Option'))
+    }
+    req.group.planOptions.push(PlanOption)
+    req.group.save((err, group) => {
+      if (err) { return next(err) }
+      if (!group) { return new Error('unable to save group') }
+      res.json(PlanOption)
+    })
+  })
+}
 controller.getGroupsContainingUser = (req, res) => {
   Group.find({'members': req.params.userid})
       .populate('members')

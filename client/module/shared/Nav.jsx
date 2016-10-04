@@ -4,7 +4,7 @@ import jwtDecode from 'jwt-decode'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { getUser } from '../../actions/userAction.js'
-import $ from 'jquery'
+
 @connect ((store) => {
   return {
     user: store.user
@@ -14,7 +14,6 @@ export default class Nav extends React.Component {
   render () {
     var userComponent
     const { user } = this.props
-    console.log(user)
     if (cookie.load('token') && !user.isFetched) {
       this.getUserData(jwtDecode(cookie.load('token'))._id)
     }
