@@ -11,3 +11,19 @@ export function getPlan (planID) {
       })
   }
 }
+/*
+  add a PlanOption to the Event and associate it with the group
+*/
+export function addPlanOption ( planID, PlanOption) {
+  return function (dispatch) {
+    axios.post('/api/plans/' + planID + '/addPlanOption', {
+      business: PlanOption
+    })
+    .then(response => {
+      dispatch({type: 'ADD_PLAN_OPTION', payload: response.data})
+    })
+    .catch(error => {
+      dispatch({type: 'ADD_PLAN_OPTION_FAILED', payload: error})
+    })
+  }
+}

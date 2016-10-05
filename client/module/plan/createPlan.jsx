@@ -114,9 +114,10 @@ export default class CreatePlan extends React.Component {
     get the yelp results given the location and search term
   */
   _addPlan (business) {
-    const { user, plans } = this.props
-
-    this.props.dispatch(addPlanOption(user._id, this.props.groupID, business))
+    console.log(this.props)
+    const { plan } = this.props
+    console.log(plan)
+    this.props.dispatch(addPlanOption(plan._id, business))
   }
   _getGroups () {
     const { user, group } = this.props

@@ -4,7 +4,7 @@ import { reducer as formReducer } from 'redux-form'
 import plans from './eventReducer'
 import user from './userReducer'
 import group from './groupReducer'
-import plan from './plan'
+import plan from './planReducer'
 
 export default combineReducers({
   user,

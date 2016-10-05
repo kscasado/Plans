@@ -24,8 +24,20 @@ export default function reducer (state = initialState, action) {
     case 'PLAN_FETCHED_ERROR': {
       return { ...state, error: action.payload, isFetched: true}
     }
-    case 'PLAN_remove': {
+    case 'PLAN_REMOVE': {
       return { initialState
+      }
+    }
+    case 'ADD_PLAN_OPTION': {
+      let newPlanOption = {
+        id: action.payload._id
+
+      }
+      return {...state}
+    }
+    case 'ADD_PLAN_OPTION_FAILED': {
+      return {
+        ...state, error:action.payload
       }
     }
   }

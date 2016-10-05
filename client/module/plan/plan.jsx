@@ -32,14 +32,16 @@ export default class Plan extends React.Component {
   render () {
     const { plan } = this.props
     if (!plan.isFetched) {
+      console.log(this.props.params.planID)
       this.props.dispatch(getPlan(this.props.params.planID))
     }
+    console.log(plan)
     return (
       <div>
         <Dialog active = {this.state.modalView}
                 actions = {this.modalActions}>
                 <h2>Add Option</h2>
-                <CreatePlan groupID={plan.groupID}></CreatePlan>
+                <CreatePlan plan={plan}></CreatePlan>
         </Dialog>
         <Card>
           <CardTitle>{plan.groupname}</CardTitle>

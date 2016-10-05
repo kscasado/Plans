@@ -41,5 +41,26 @@ controller.getPlan = (req, res) => {
     }
   })
 }
+controller.addPlanOption = (req, res, next) => {
+  var business = req.body.business
+  var newPlanOption = new PlanOption()
+  newPlanOption.address = business.location.address
+  newPlanOption.city = business.location.city
+  newPlanOption.imageURL = business.image_url
+  newPlanOption.url = business.url
+  newPlanOption.group = req.group._id
+  newPlanOption.title = business.name
+  newPlanOption.save((err, PlanOption) => {
+    if (err) {
+      return next(new Error('can\'t save Plan Option'))
+    }
+    req.plan.planOptions.push(PlanOption)
+    req.plan.save((err, plan) => {
+      if (err) { return next(err) }
+      if (!plan) { return new Error('unable to save group') }
+      res.json(PlanOption)
+    })
+  })
+}
 
 export default controller
