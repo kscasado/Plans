@@ -8,7 +8,9 @@ import express from 'express'
 import controller from './plan.controller.js'
 const router = express.Router()
 router.param('planID', controller.planParam)
+router.param('planOption', controller.optionParam)
 router.get('/:userid', controller.getUsersPlans)
 router.get('/:planID/getPlan', controller.getPlan)
 router.post('/:planID/addPlanOption', controller.addPlanOption)
+router.post('/:planID/options/:planOption/vote', controller.voteForOption)
 export default router

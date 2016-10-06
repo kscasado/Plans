@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 var PlanOptionSchema = new mongoose.Schema({
+  title: String,
   address: String,
   city: String,
   url: String,
@@ -10,4 +11,10 @@ var PlanOptionSchema = new mongoose.Schema({
 
 })
 
+PlanOptionSchema.methods.vote = function(cb){
+  console.log('planOption model' + this)
+  this.votes +=1
+  console.log(this.votes)
+  this.save(cb)
+}
 module.exports = mongoose.model('PlanOption', PlanOptionSchema)

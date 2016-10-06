@@ -16,17 +16,29 @@ export function getPlan (planID) {
   add a PlanOption to the Event and associate it with the group
 */
 export function addPlanOption ( planID, PlanOption) {
-  console.log('planOptionCalled:'+ planID)
   return function (dispatch) {
     axios.post('/api/plans/' + planID + '/addPlanOption', {
       business: PlanOption
     })
     .then(response => {
-      console.log('response: '+ JSON.stringify(response))
       dispatch({type: 'ADD_PLAN_OPTION', payload: response.data})
     })
     .catch(error => {
       dispatch({type: 'ADD_PLAN_OPTION_FAILED', payload: error})
+    })
+  }
+}
+/*
+  vote for the plan option
+*/
+export function voteForOption ( optionID, planID){
+  return function (dispatch) {
+    axios.post('/api/plans/'+ planID+'/options/'+optionID+'/vote')
+    .then(response => {
+      dispatch({type: 'VOTED', payload: response.data})
+    })
+    .catch(error => {
+      dispatch({type: 'VOTE_FAILED', payload: error})
     })
   }
 }

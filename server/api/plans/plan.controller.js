@@ -25,19 +25,29 @@ controller.planParam = (req, res, next, id) => {
     } else if (!plan) {
       res.send(new Error('can\'t find plan'))
     } else {
-      console.log('planparam:'+ plan)
-      console.log('planparam id:' + plan.toObject()._id)
-      console.log('planparam group'+ plan.group)
-      console.log('planparam options' + plan.options)
       req.plan = plan
-      console.log('req.plan' + req.plan)
       return next()
     }
   })
  }
+ controller.optionParam = (req, res, next, id) => {
+   var query = PlanOption.findOne({'_id': id})
+   query.exec((err,planOption) => {
+     if(err){
+       res.send(err)
+     } else if (!planOption){
+       res.send( new Error('can\'t find plan'))
+     } else {
+       req.option = planOption
+
+       return next()
+     }
+   })
+ }
 controller.getPlan = (req, res) => {
   Plan.findOne({'_id': req.params.planID})
     .populate('group')
+    .populate('options')
     .exec((err, plan) => {
       if (err) {
         res.send(err)
@@ -50,7 +60,6 @@ controller.getPlan = (req, res) => {
 }
 controller.addPlanOption = (req, res) => {
   var business = req.body.business
-  console.log('req.plan'+req.plan._id)
   var newPlanOption = new PlanOption()
   newPlanOption.address = business.location.address
   newPlanOption.city = business.location.city
@@ -58,9 +67,7 @@ controller.addPlanOption = (req, res) => {
   newPlanOption.url = business.url
   newPlanOption.title = business.name
   newPlanOption.plan = req.plan._id
-  console.log('newPlan:'+ newPlanOption)
   newPlanOption.save((err, PlanOption) => {
-    console.log('passed save:'+PlanOption)
     if (err) {
       return next(new Error('can\'t save Plan Option'))
     }
@@ -72,5 +79,17 @@ controller.addPlanOption = (req, res) => {
     })
   })
 }
+controller.voteForOption = (req, res) => {
+  console.log(req.option)
+  req.option.vote((err, option) => {
+    if(err){
+      res.send(err)
+    }
+    else{
+      console.log(option)
+      res.json(option.votes)
+    }
+  })
 
+}
 export default controller

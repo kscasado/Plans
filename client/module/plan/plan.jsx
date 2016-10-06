@@ -4,7 +4,8 @@ import React from 'react'
 import moment from 'moment'
 import CreatePlan from './createPlan.jsx'
 import { connect } from 'react-redux'
-import { getPlan } from '../../actions/planAction.js'
+import { getPlan, voteForOption } from '../../actions/planAction.js'
+import { Link } from 'react-toolbox/lib/link'
 import { Dialog } from 'react-toolbox/lib/dialog'
 import { Button, IconButton } from 'react-toolbox/lib/button'
 import { Card, CardMedia, CardText, CardActions, CardTitle } from 'react-toolbox/lib/card'
@@ -45,8 +46,18 @@ export default class Plan extends React.Component {
           <CardTitle>{plan.groupname}</CardTitle>
           <CardText>
             <strong>When: {moment(plan.date).format('ddd, MMM D hA')} </strong>
-            <List>
+            <List selectable ripple>
               <ListSubHeader caption='Options'></ListSubHeader>
+                {plan.options.map((option) => {
+                  let votes = "votes:" + option.votes
+                  return ( <ListItem key={option.id}
+                            avatar = {option.image}
+                            caption = {option.title}
+                            legend = {votes}
+                            rightIcon = 'bookmark'
+                            onClick = {this._vote.bind(this, option)}
+                            />)
+                })}
               <ListDivider />
               <ListItem>
                 <IconButton icon='add' primary onClick={this._showCreatePlanDialog.bind(this)} />
@@ -60,6 +71,10 @@ export default class Plan extends React.Component {
       </div>
 
     )
+  }
+  _vote(option){
+    const { plan, dispatch} = this.props
+    dispatch(voteForOption(option.id, plan.id))
   }
   _handleCloseModal() {
     this.setState({modalView: false})
