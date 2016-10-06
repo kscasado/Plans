@@ -5,7 +5,7 @@ var PlanOptionSchema = new mongoose.Schema({
   city: String,
   url: String,
   imageURL: String,
-  group:{type: mongoose.Schema.Types.ObjectId, ref: 'group'},
+  plan:{type: mongoose.Schema.Types.ObjectId, ref: 'Plan'},
   votes: {type: Number, default: 0}
 
 })
