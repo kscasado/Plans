@@ -9,11 +9,12 @@ Plans is a social application where friends can make groups and  make plans. It 
   2. A user can add Groups with a specific title
   3. A user can search for businesses and add them to a particular group
   4. A user can view the groups and plans that they have made
-
+  5. A user is able to add members to groups
+  6. A user is able to vote on options for the specific plan
 
 ### Future Implementations
-  1. Be able to add members to groups
-  2. Be able to have voting on plans
+  1. Enable email notification
+  
 
 
 

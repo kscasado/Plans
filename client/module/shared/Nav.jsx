@@ -22,9 +22,6 @@ export default class Nav extends React.Component {
       var groupLink='users/'+user._id+'/groups'
       userComponent= <div>
         <img src={user.facebook.imageUrl}></img>
-
-        <Link to={`users/${user._id}/plans`} className="mdl-badge" data-badge={`${user.plans.length}`}><strong>Plans</strong></Link>
-        <strong> | </strong>
         <Link to={`users/${user._id}/groups`} className="mdl-badge" data-badge={`${user.groups.length}`}><strong>Groups</strong></Link>
         <br></br>
       <Link to={`/auth/logout`}>LogOut</Link>
