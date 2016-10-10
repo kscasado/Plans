@@ -10,6 +10,7 @@ import { Dialog } from 'react-toolbox/lib/dialog'
 import { Button, IconButton } from 'react-toolbox/lib/button'
 import { Card, CardMedia, CardText, CardActions, CardTitle } from 'react-toolbox/lib/card'
 import { List, ListItem, ListSubHeader, ListDivider } from 'react-toolbox/lib/list'
+import Chart from './chart.jsx'
 @connect((store) => {
   return {
     plan: store.plan
@@ -67,6 +68,9 @@ export default class Plan extends React.Component {
 
             </List>
           </CardText>
+          <CardMedia>
+            <Chart options={plan.options}></Chart>
+          </CardMedia>
         </Card>
       </div>
 

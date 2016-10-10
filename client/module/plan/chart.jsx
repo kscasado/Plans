@@ -1,9 +1,9 @@
 //Component for displaying the plan
 
 import React from 'react'
-import { BarChart } from 'react-chartjs'
+import { BarChart, Pie } from 'react-chartjs'
 import  Color  from 'color'
-export default class Plan extends React.Component {
+export default class Chart extends React.Component {
 
 
 
@@ -17,36 +17,34 @@ export default class Plan extends React.Component {
 
 
   render () {
-    const { votes } = this.props
-    var chartData = this._mapChartValues(votes)
+    const { options } = this.props
+    const votes = options.map((vote) => {
+      const color = this._getRandomColor()
+      return {
+        value: vote.votes,
+      label: vote.title,
+      color: color,
+      highlight: Color(color).lighten(0.05).hexString()
+      }
+    })
     return (
       <div>
-        <h2> Poll </h2>
-        <BarChart data={votes} width="300" height="300"></BarChart>
+        <h2> Results </h2>
+        <Pie data={votes} width="300" height="300"></Pie>
       </div>
 
     )
   }
-  _mapChartValues(votes) {
-    return {
-      votes.map((vote) => {
-        const color = getRandColor()
-        return {
-          value: vote.votes,
-        label: vote.name,
-        color: color,
-        highlight: Color(color).lighten(0.05).hexString()
-        }
-      }
-    }
-  getRandomColor(){
-    const redHex = (getRandomInt(0, 128) + 127).toString(16)
-    const greenHex = (getRandomInt(0, 128) + 127).toString(16)
-    const blueHex = (getRandomInt(0, 128) + 127).toString(16)
+
+  _getRandomColor () {
+    const redHex = (this._getRandomInt(0, 128) + 127).toString(16)
+    const greenHex = (this._getRandomInt(0, 128) + 127).toString(16)
+    const blueHex = (this._getRandomInt(0, 128) + 127).toString(16)
+    console.log(redHex)
     return `#${redHex}${greenHex}${blueHex}`
   }
 
-    const getRandomInt = (min, max) => {
-      Math.floor(Math.random() * (max - min + 1)) + min
-    }
+  _getRandomInt (min, max) {
+      return (Math.floor(Math.random() * (max - min + 1)+min))
+  }
 }
