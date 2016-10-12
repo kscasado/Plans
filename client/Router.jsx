@@ -18,7 +18,6 @@ const rootRoute = (
   <Provider store={store}>
   <Router history={history}>
     <Route path='/' component={Layout}>
-      <IndexRoute component={CreatePlan} />
       <Route path='users/:userID/groups' component={Groups} />
       <Route path='users/:userID/plans' component={ViewPlans} />
       <Route path='auth/logout' component={LogoutComponent} />

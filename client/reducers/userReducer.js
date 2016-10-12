@@ -25,7 +25,7 @@ export default function reducer(state={
       case 'ADD_GROUP': {
         return { ...state,
           groups: [...state.groups, {_id: action.payload._id, groupName: action.payload.groupname,
-                                    plans: action.payload.plans, members: action.payload.members}]
+                                    plans: action.payload.plans, members: action.payload.members}, isFetched: false]
         }
 
       }
