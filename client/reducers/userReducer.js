@@ -14,7 +14,7 @@ export default function reducer(state={
     plans: []
   }],
   plans: [],
-  isFetched:false
+  isFetched: false
   }, action) {
     switch (action.type) {
       case 'GET_USER': {
@@ -25,7 +25,7 @@ export default function reducer(state={
       case 'ADD_GROUP': {
         return { ...state,
           groups: [...state.groups, {_id: action.payload._id, groupName: action.payload.groupname,
-                                    plans: action.payload.plans, members: action.payload.members}, isFetched: false]
+                                    plans: action.payload.plans, members: action.payload.members}], isFetched: false
         }
 
       }

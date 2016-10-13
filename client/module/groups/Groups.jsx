@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import Group from './Group.jsx'
 import { addGroup, getGroups } from '../../actions/userAction'
 import { getGroupsfromUser } from '../../actions/groupAction'
-import Modal from 'react-modal'
 import AddGroupForm from './addGroupForm.jsx'
 @connect((store) => {
   return{
@@ -22,6 +21,7 @@ export default class Groups extends React.Component {
   }
   _getGroups () {
     const { user, group } = this.props
+    console.log('user.isFetched: '+ user.isFetched + 'group.isFetched:' + group.isFetched)
     if (user.isFetched && !group.isFetched) {
       this.props.dispatch(getGroupsfromUser(user._id))
     }
@@ -32,7 +32,7 @@ export default class Groups extends React.Component {
     this.props.dispatch(addGroup(this.props.user._id,
                                   this.props.user._id,
                                   form.AddGroupForm.values.NewGroupName))
-    this.props.dispatch({type:'GROUP_ADDED',payload: true})
+              .then(this.props.dispatch({type: 'GROUP_ADDED', payload: true}))
   }
   //  fetches groups
   _generateGroupElement (group) {
@@ -57,7 +57,7 @@ export default class Groups extends React.Component {
     if(group.error){
       error=<div className='alert alert-danger'><strong>{group.error}</strong></div>
     }
-  return (
+    return (
       <div>
         <h2>Groups</h2>
         <AddGroupForm onSubmit={this._addGroup.bind(this)}/>
@@ -67,8 +67,5 @@ export default class Groups extends React.Component {
         </div>
       </div>
     )
-  }
-  _addMember (group) {
-
   }
 }

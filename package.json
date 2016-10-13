@@ -1,7 +1,7 @@
 {
   "name": "Plans",
   "version": "1.0.0",
-  "description": "",
+  "description": "Plans is a web application that allows user to plan their next adventure",
   "main": "index.js",
   "engines": {
     "node": "6.2.0",

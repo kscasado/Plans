@@ -70,6 +70,7 @@ export function addGroup (userID, members, name) {
     })
     .then(response => {
       dispatch({type: 'ADD_GROUP', payload: response.data})
+      .then(dispatch({type: 'GROUP_ADDED', payload: true}))
     })
     .catch(error => {
       dispatch({type: 'ADD_GROUP_FAILED', payload: error})

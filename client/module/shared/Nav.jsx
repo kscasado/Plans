@@ -34,7 +34,7 @@ export default class Nav extends React.Component {
       <div className='mdl-navigation mdl-typography--text-right'>
         {userComponent}
       </div>
-
+      {this.props.children}
     </div>
     )
   }
